@@ -1,7 +1,10 @@
+const User = require('../models/users.model');
+
 // GET - Listar todos os usuários
 const getAllUsers = async (req, res) => {
     try {
-        // Lógica para buscar todos os usuários
+        const users = await User.findAll();
+        res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -11,7 +14,12 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        // Lógica para buscar usuário por ID
+        const user = await User.findByPk(id);
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'Usuário não encontrado' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -21,7 +29,8 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const userData = req.body;
-        // Lógica para criar usuário
+        const newUser = await User.create(userData);
+        res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -32,7 +41,13 @@ const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const userData = req.body;
-        // Lógica para atualizar usuário
+        const [updated] = await User.update(userData, { where: { id } });
+        if (updated) {
+            const updatedUser = await User.findByPk(id);
+            res.status(200).json(updatedUser);
+        } else {
+            res.status(404).json({ message: 'Usuário não encontrado' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -42,7 +57,12 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        // Lógica para deletar usuário
+        const deleted = await User.destroy({ where: { id } });
+        if (deleted) {
+            res.status(204).send();
+        } else {
+            res.status(404).json({ message: 'Usuário não encontrado' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
