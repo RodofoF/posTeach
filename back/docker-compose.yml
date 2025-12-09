@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: posteach_back_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_URL: mysql://posteach_back:posteach_back@db:3306/posteach_back
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./uploads_data:/app/public/uploads
+      # Monta o socket do Docker para permitir que a API execute comandos 'docker exec'
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  db:
+    image: mysql:8
+    container_name: posteach_back_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: posteach_back
+      MYSQL_DATABASE: posteach_back
+      MYSQL_USER: posteach_back
+      MYSQL_PASSWORD: posteach_back
+    ports:
+      - "3306:3306"  
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "posteach_back", "-p'posteach_back'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  dbphpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: posteach_back_phpmyadmin
+    restart: always
+    ports:
+      - "8080:80" 
+    environment:
+      PMA_HOST: db 
+      PMA_USER: posteach_back
+      PMA_PASSWORD: posteach_back
+    depends_on:
+      db:
+        condition: service_healthy

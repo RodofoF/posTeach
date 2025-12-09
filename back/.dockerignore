@@ -1,0 +1,6 @@
+# Ignorar dependências do Node.js, elas serão instaladas dentro do contêiner
+node_modules
+
+# Ignorar pastas de dados de volumes do Docker
+mysql_data
+uploads_data

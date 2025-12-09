@@ -1,0 +1,8 @@
+# Backend
+back/node_modules
+/back/mysql_data
+/back/uploads_data
+/back/DS_Store
+/back/src/DS_Store
+/back/backups
+/back/src/DS_Store
