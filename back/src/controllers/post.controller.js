@@ -1,7 +1,11 @@
+const Post = require('../models/post.model');
+const fs = require('fs');
+
 // GET - Listar todos os posts
 const getAllPosts = async (req, res) => {
     try {
-        // Lógica para buscar todos os posts
+        const posts = await Post.findAll();
+        res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -11,7 +15,12 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
     try {
         const { id } = req.params;
-        // Lógica para buscar post por ID
+        const post = await Post.findByPk(id);
+        if (post) {
+            res.status(200).json(post);
+        } else {
+            res.status(404).json({ message: 'Post não encontrado' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -21,7 +30,14 @@ const getPostById = async (req, res) => {
 const createPost = async (req, res) => {
     try {
         const postData = req.body;
-        // Lógica para criar post
+        if(req.file) {
+            postData.postimage = req.file.path;
+        } else {
+            // Em breve, adicionar imagem padrão para posts
+            postData.postimage = 'public/uploads_data/post/userdefault.png';
+        }
+        const newPost = await Post.create(postData);
+        res.status(201).json(newPost);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -32,7 +48,19 @@ const updatePost = async (req, res) => {
     try {
         const { id } = req.params;
         const postData = req.body;
-        // Lógica para atualizar post
+        if(req.file) {
+            postData.postimage = req.file.path;
+        } else {
+            // Em breve, lógica para manter a imagem atual ou definir padrão
+            postData.postimage = 'public/uploads_data/post/userdefault.png';
+        }   
+        const [updated] = await Post.update(postData, { where: { id } });
+        if (updated) {
+            const updatedPost = await Post.findByPk(id);
+            res.status(200).json(updatedPost);
+        } else {
+            res.status(404).json({ message: 'Post não encontrado' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -42,7 +70,12 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res) => {
     try {
         const { id } = req.params;
-        // Lógica para deletar post
+        const deleted = await Post.destroy({ where: { id } });
+        if (deleted) {
+            res.status(204).send();
+        } else {
+            res.status(404).json({ message: 'Post não encontrado' });
+        }
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

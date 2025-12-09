@@ -1,7 +1,7 @@
 {
 	"info": {
-		"name": "PosTeach API - Users",
-		"description": "Coleção de testes para o CRUD de usuários",
+		"name": "PosTeach API",
+		"description": "Coleção de testes para o CRUD de usuários e posts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -19,48 +19,18 @@
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "João Silva",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "joao@email.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "senha123",
-									"type": "text"
-								},
-								{
-									"key": "profile_id",
-									"value": "2",
-									"type": "text"
-								},
-								{
-									"key": "userdescription",
-									"value": "Descrição do usuário",
-									"type": "text"
-								},
-								{
-									"key": "userimage",
-									"type": "file",
-									"src": []
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"João Silva\",\n  \"email\": \"joao@email.com\",\n  \"password\": \"senha123\",\n  \"profile_id\": 2,\n  \"userdescription\": \"Descrição do usuário\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users",
+							"raw": "http://localhost:3000/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -73,13 +43,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users",
+							"raw": "http://localhost:3000/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -92,13 +63,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/1",
+							"raw": "http://localhost:3000/api/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -110,35 +82,25 @@
 					"name": "Atualizar Usuário",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "username",
-									"value": "João Silva Atualizado",
-									"type": "text"
-								},
-								{
-									"key": "userdescription",
-									"value": "Nova descrição",
-									"type": "text"
-								},
-								{
-									"key": "userimage",
-									"type": "file",
-									"src": []
-								}
-							]
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"João Silva Atualizado\",\n  \"userdescription\": \"Nova descrição\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/1",
+							"raw": "http://localhost:3000/api/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users",
 								"1"
 							]
@@ -152,14 +114,141 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/1",
+							"raw": "http://localhost:3000/api/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
 								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Criar Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Meu Primeiro Post\",\n  \"content\": \"Conteúdo do post aqui\",\n  \"user_id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Post por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Post Atualizado\",\n  \"content\": \"Novo conteúdo do post\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"posts",
 								"1"
 							]
 						}
