@@ -31,10 +31,13 @@ const createUser = async (req, res) => {
     try {
         const userData = req.body;
         
-        // Se houver foto enviada, adiciona o caminho ao userData
+        // Se houver foto enviada, usa ela, senão usa a imagem padrão
         if (req.file) {
             userData.userimage = req.file.path;
+        } else {
+            userData.userimage = 'public/uploads_data/user/userdefault.png';
         }
+        
         const newUser = await User.create(userData);
         res.status(201).json(newUser);
     } catch (error) {
