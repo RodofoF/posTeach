@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const app = require('./app');
 const { sequelize } = require('./src/config/db');
+const { defineAssociations } = require('./src/models/association.model');
 // const swaggerUi = require('swagger-ui-express');
 // const setupAssociations = require('./src/models/associations.model');
 // const seedProfiles = require('./src/config/seeds/profile.seeder');
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 
 async function startServer() {
   try {
+    defineAssociations();
     // 1. Configurar associações dos modelos
     // setupAssociations();
     // console.log('Associações de modelos configuradas.');
