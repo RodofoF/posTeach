@@ -4,7 +4,7 @@ const path = require('path');
 // Configuração para fotos de USUÁRIOS
 const storageUser = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads_data/user/');
+        cb(null, 'public/uploads_data/user/');
     },
     filename: function (req, file, cb) {
         const nomeUnico = Date.now() + path.extname(file.originalname);
@@ -15,7 +15,7 @@ const storageUser = multer.diskStorage({
 // Configuração para fotos de POSTS
 const storagePost = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads_data/post/');
+        cb(null, 'public/uploads_data/post/');
     },
     filename: function (req, file, cb) {
         const nomeUnico = Date.now() + path.extname(file.originalname);

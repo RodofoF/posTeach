@@ -1,4 +1,5 @@
 const User = require('../models/users.model');
+const fs = require('fs');
 
 // GET - Listar todos os usuários
 const getAllUsers = async (req, res) => {
@@ -29,6 +30,11 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const userData = req.body;
+        
+        // Se houver foto enviada, adiciona o caminho ao userData
+        if (req.file) {
+            userData.userimage = req.file.path;
+        }
         const newUser = await User.create(userData);
         res.status(201).json(newUser);
     } catch (error) {
@@ -41,6 +47,23 @@ const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const userData = req.body;
+        
+        // Se houver nova foto, apaga a antiga
+        if (req.file) {
+            // Busca o usuário para pegar o caminho da foto antiga
+            const user = await User.findByPk(id);
+            
+            // Se existir foto antiga, apaga do servidor
+            if (user && user.userimage) {
+                fs.unlink(user.userimage, (err) => {
+                    if (err) console.error('Erro ao deletar foto antiga:', err);
+                });
+            }
+            
+            // Atualiza com o caminho da nova foto
+            userData.userimage = req.file.path;
+        }
+        
         const [updated] = await User.update(userData, { where: { id } });
         if (updated) {
             const updatedUser = await User.findByPk(id);
