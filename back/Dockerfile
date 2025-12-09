@@ -2,7 +2,7 @@ FROM node:20-slim
  
 # Instala o FFmpeg, procps (para comandos como 'ps') e o cliente Docker.
 # O 'docker.io' fornece o comando 'docker' que precisamos para executar 'docker exec'.
-RUN apt-get update && apt-get install -y ffmpeg procps docker.io && \
+RUN apt-get update && apt-get install -y && \
     # Limpa o cache do apt para reduzir o tamanho final da imagem
     rm -rf /var/lib/apt/lists/*
  
