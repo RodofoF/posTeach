@@ -17,10 +17,10 @@ app.use('/public', express.static('public'));
 
 
 //Rotas
-// const authRoutes = require('./src/routes/auth.routes');
+const authRoutes = require('./src/routes/auth.routes');
 
 // Rotas da API
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/users', require('./src/routes/user.route'));
 app.use('/api/posts', require('./src/routes/post.route'));
 

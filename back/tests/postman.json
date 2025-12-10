@@ -1,10 +1,45 @@
 {
 	"info": {
 		"name": "PosTeach API",
-		"description": "Coleção de testes para o CRUD de usuários e posts",
+		"description": "Coleção completa de testes para Auth, Users e Posts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"joao@email.com\",\n  \"password\": \"senha123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Users",
 			"item": [
@@ -41,7 +76,13 @@
 					"name": "Listar Todos Usuários",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/users",
 							"protocol": "http",
@@ -61,7 +102,13 @@
 					"name": "Buscar Usuário por ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/users/1",
 							"protocol": "http",
@@ -86,6 +133,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
 							}
 						],
 						"body": {
@@ -112,7 +164,13 @@
 					"name": "Deletar Usuário",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/users/1",
 							"protocol": "http",
@@ -142,11 +200,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Meu Primeiro Post\",\n  \"content\": \"Conteúdo do post aqui\",\n  \"user_id\": 1\n}"
+							"raw": "{\n  \"title\": \"Meu Primeiro Post\",\n  \"subtitle\": \"Subtítulo do post\",\n  \"content\": \"Conteúdo do post aqui\",\n  \"user_id\": 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/api/posts",
@@ -167,7 +230,13 @@
 					"name": "Listar Todos Posts",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/posts",
 							"protocol": "http",
@@ -187,7 +256,13 @@
 					"name": "Buscar Post por ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/posts/1",
 							"protocol": "http",
@@ -212,6 +287,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
 							}
 						],
 						"body": {
@@ -238,7 +318,13 @@
 					"name": "Deletar Post",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT obtido no login"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/posts/1",
 							"protocol": "http",
