@@ -22,8 +22,8 @@ async function startServer() {
 
     // 4. Iniciar o servidor
     app.listen(port, () => {
-      console.log(`\n🚀 Servidor rodando em http://localhost:${port}`);
-      console.log(`📡 API disponível em http://localhost:${port}/api`);
+      console.log(`\n Servidor rodando em http://localhost:${port}`);
+      console.log(`API disponível em http://localhost:${port}/api`);
     });
   } catch (error) {
     console.error('❌ Falha ao iniciar o servidor:', error);

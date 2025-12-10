@@ -1,7 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-// const swaggerSpec = require('./src/config/swagger');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./src/config/swagger');
 
 // Carrega as variáveis de ambiente do .env
 dotenv.config();
@@ -15,6 +16,12 @@ app.use(express.json());
 // Servir arquivos estáticos da pasta 'public'
 app.use('/public', express.static('public'));
 
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'PosTeach API Docs'
+}));
+
 
 //Rotas
 const authRoutes = require('./src/routes/auth.routes');
@@ -26,19 +33,10 @@ app.use('/api/posts', require('./src/routes/post.route'));
 
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Hello from Posteach-Backend!' });
+  res.json({ 
+    message: 'Hello from Posteach-Backend!',
+    docs: 'http://localhost:3000/api-docs'
+  });
 });
-// app.get('/api/swagger.json', (req, res) => {
-//   // Build dynamic servers list based on the incoming request
-//   const spec = { ...swaggerSpec };
-//   spec.servers = [
-//     {
-//       url: `${req.protocol}://${req.get('host')}`,
-//       description: 'Servidor atual',
-//     },
-//   ];
-//   res.setHeader('Content-Type', 'application/json');
-//   res.send(spec);
-// });
 
 module.exports = app;
