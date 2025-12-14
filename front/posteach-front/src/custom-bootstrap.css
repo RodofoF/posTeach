@@ -1,0 +1,10 @@
+:root {
+  --bs-primary: #143b5f;
+  --bs-secondary: #6c757d;
+  --bs-success: #28a745;
+  --bs-danger: #dc3545;
+  --bs-warning: #ffc107;
+  --bs-info: #17a2b8;
+  --bs-light: #ffffff;
+  --bs-dark: #343a40;
+}
