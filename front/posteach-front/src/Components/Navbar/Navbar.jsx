@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, Offcanvas, NavDropdown } from "react-bootstrap"; 
 import { useState } from "react"; 
 
-// import speedsystem from "../../assets/speedsystem_azul_3d.png"
+import posteach_icon from "../../assets/posteach_icon-removebg.png"
+import posteach_icon_side from "../../assets/posteach_icon_side_bg.png"
 
 export default function Header() {
   const expand = "lg"; 
@@ -45,7 +46,7 @@ export default function Header() {
     <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" fixed="top">
       <Container fluid>
         <Navbar.Brand as={Link} to={isAuthenticated ? "/" : "/login"}>
-          {/* <img src={speedsystem} alt="Logo do sistema." width="200px"/> */}
+          <img src={posteach_icon_side} alt="Logo do sistema." width="120px"/>
         </Navbar.Brand>
         {isAuthenticated && (
           <>
