@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, Offcanvas, NavDropdown } from "react-bootstrap"; 
 import { useState } from "react"; 
 
-import posteach_icon from "../../assets/posteach_icon-removebg.png"
 import posteach_icon_side from "../../assets/posteach_icon_side_bg.png"
 
 export default function Header() {
@@ -66,10 +65,10 @@ export default function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3"> 
-                  <Nav.Link as={Link} to="/multicast" onClick={handleNavLinkClick}>
-                    Multicasts
+                  <Nav.Link as={Link} to="/" onClick={handleNavLinkClick}>
+                    Home
                   </Nav.Link>
-                  <NavDropdown 
+                  {/* <NavDropdown 
                       title="Check List" 
                       id={`offcanvasNavbarDropdown-expand-${expand}`} 
                   >
@@ -79,8 +78,8 @@ export default function Header() {
                       <NavDropdown.Item as={Link} to="/check/hpa" onClick={handleNavLinkClick}>
                           HPA
                       </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown 
+                  </NavDropdown> */}
+                  {/* <NavDropdown 
                       title="Antenas" 
                       id={`offcanvasNavbarDropdown-expand-${expand}`} 
                   >
@@ -90,13 +89,13 @@ export default function Header() {
                       <NavDropdown.Item as={Link} to="/antenas/maps" onClick={handleNavLinkClick}>
                           Mapas
                       </NavDropdown.Item>
-                  </NavDropdown>
+                  </NavDropdown> */}
                   <NavDropdown 
-                      title="Usuários" 
+                      title="Usuário" 
                       id={`offcanvasNavbarDropdown-expand-${expand}`} 
                   >
                       <NavDropdown.Item as={Link} to="/users/perfil" onClick={handleNavLinkClick}>
-                          Minha Conta
+                          Minhas Informações
                       </NavDropdown.Item>
                       <NavDropdown.Item as={Link} to="/users/" onClick={handleNavLinkClick}>
                           Lista de Usuarios
