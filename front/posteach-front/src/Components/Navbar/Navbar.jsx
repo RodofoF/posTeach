@@ -65,45 +65,49 @@ export default function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3"> 
-                  <Nav.Link as={Link} to="/" onClick={handleNavLinkClick}>
-                    Home
-                  </Nav.Link>
-                  {/* <NavDropdown 
-                      title="Check List" 
-                      id={`offcanvasNavbarDropdown-expand-${expand}`} 
-                  >
-                      <NavDropdown.Item as={Link} to="/check/cn" onClick={handleNavLinkClick}>
-                          C/N
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/check/hpa" onClick={handleNavLinkClick}>
-                          HPA
-                      </NavDropdown.Item>
-                  </NavDropdown> */}
-                  {/* <NavDropdown 
-                      title="Antenas" 
-                      id={`offcanvasNavbarDropdown-expand-${expand}`} 
-                  >
-                      <NavDropdown.Item as={Link} to="/antenas/" onClick={handleNavLinkClick}>
-                          Detalhes
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/antenas/maps" onClick={handleNavLinkClick}>
-                          Mapas
-                      </NavDropdown.Item>
-                  </NavDropdown> */}
-                  <NavDropdown 
-                      title="Usuário" 
-                      id={`offcanvasNavbarDropdown-expand-${expand}`} 
-                  >
-                      <NavDropdown.Item as={Link} to="/users/perfil" onClick={handleNavLinkClick}>
-                          Minhas Informações
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/users/" onClick={handleNavLinkClick}>
-                          Lista de Usuarios
-                      </NavDropdown.Item>
-                  </NavDropdown>
-                  <Nav.Link onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                    Sair
-                  </Nav.Link>
+                  {isAuthenticated && (
+                    <>
+                      <Nav.Link as={Link} to="/" onClick={handleNavLinkClick}>
+                        Home
+                      </Nav.Link>
+                      {/* <NavDropdown 
+                          title="Check List" 
+                          id={`offcanvasNavbarDropdown-expand-${expand}`} 
+                      >
+                          <NavDropdown.Item as={Link} to="/check/cn" onClick={handleNavLinkClick}>
+                              C/N
+                          </NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/check/hpa" onClick={handleNavLinkClick}>
+                              HPA
+                          </NavDropdown.Item>
+                      </NavDropdown> */}
+                      {/* <NavDropdown 
+                          title="Antenas" 
+                          id={`offcanvasNavbarDropdown-expand-${expand}`} 
+                      >
+                          <NavDropdown.Item as={Link} to="/antenas/" onClick={handleNavLinkClick}>
+                              Detalhes
+                          </NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/antenas/maps" onClick={handleNavLinkClick}>
+                              Mapas
+                          </NavDropdown.Item>
+                      </NavDropdown> */}
+                      <NavDropdown 
+                          title="Usuário" 
+                          id={`offcanvasNavbarDropdown-expand-${expand}`} 
+                      >
+                          <NavDropdown.Item as={Link} to="/users/perfil" onClick={handleNavLinkClick}>
+                              Minhas Informações
+                          </NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to="/users/" onClick={handleNavLinkClick}>
+                              Lista de Usuarios
+                          </NavDropdown.Item>
+                      </NavDropdown>
+                      <Nav.Link onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                        Sair
+                      </Nav.Link>
+                    </>
+                  )}
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
