@@ -4,7 +4,7 @@
  * IMPORTANTE: Estes testes requerem que o banco de dados esteja rodando.
  * Para executar os testes:
  * 1. Inicie o banco de dados: `docker compose up db`
- * 2. Execute os testes: `npm test` ou `npm test --users.test.js` ( para executar somente este arquivo )
+ * 2. Em outro terminal execute os testes: `npm test` ou `npm test --users.test.js` ( para executar somente este arquivo )
  */
 
 const request = require('supertest');
