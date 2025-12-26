@@ -35,7 +35,7 @@ export default function Home() {
             title: 'Configurações de Administração',
             text: 'Gerencie usuários e premições na plataforma.',
             img: config_img,
-            link: '#'
+            link: '/administration'
         }
     ]
 
