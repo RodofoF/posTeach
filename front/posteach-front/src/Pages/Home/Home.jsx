@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import PageTitle from '../../Components/PageTitle/PageTitle.jsx'
 
 import info_read_post from '../../assets/info_read_post.png';
+import CardComponent from '../../Components/CardComponent/CardComponent.jsx';
 
 
 export default function Home() {
@@ -12,34 +13,30 @@ export default function Home() {
 
     const token = localStorage.getItem('userToken');
 
-    return (<Container style={{ paddingTop: '6rem' }}>
-        <PageTitle title={`Bem vindo, ${username.username}!`} />
+    const initialCards = [
+        {
+            id: 1,
+            title: 'Card 1',
+            text: 'Este é o texto do Card 1.',
+            img: info_read_post,
+            link: '/posts/'
+        },
+        {
+            id: 2,
+            title: 'Card 2',
+            text: 'Este é o texto do Card 2.',
+            img: info_read_post,
+            link: '#'
+        }
+    ]
 
-        <Row xs={1} md={2} className="g-4">
-                <Col>
-                    <Card>
-                        <Card.Img 
-                            variant="top" 
-                            src={info_read_post} 
-                            style={{ 
-                                maxWidth: '380px', 
-                                maxHeight: '160px',
-                                width: '100%',
-                                height: 'auto',
-                                objectFit: 'contain'
-                            }} 
-                        />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a longer card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit
-                                longer.
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-        </Row>
-    </Container>
+    return (
+        <Container style={{ paddingTop: '6rem' }}>
+            <PageTitle title={`Bem vindo, ${username.username}!`} />
+            {initialCards.map(card => (
+                <CardComponent key={card.id} title={card.title} text={card.text} img={card.img} link={card.link} />
+            ))}
+
+        </Container>
     );
 }
