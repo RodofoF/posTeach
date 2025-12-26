@@ -9,3 +9,7 @@ A idéia do **PosTeach** é uma brincadeira com a palavra **post-it** que sonora
 
 ## Estrutura
 Como se trata de um projeto de pequeno porte, estamos organizando o projeto do frontend e backend no mesmo repositório, facilitando assim a correção dos avaliadores do projeto.
+
+## Pendendias
+Front e Back
+Preparar o front e back para receber imagem do usuário

@@ -106,7 +106,7 @@ export default function Administration() {
     return (
         <Container className="d-flex flex-column min-vh-100" style={{paddingTop: '4rem'}}>
             <div className="flex-grow-1">
-                <PageTitle title={'Usuários'}/>
+                <PageTitle title={'Usuários'} button={true}/>
                 
                 <Row className="mb-4 align-items-center">
                     <Col xs={12} md={9} lg={10}>
@@ -130,7 +130,7 @@ export default function Administration() {
                         <Button 
                             variant='success' 
                             as={Link} 
-                            to={'/user/create'} 
+                            to={'/administration/create'} 
                         >
                             Criar Novo Usuário
                         </Button>
