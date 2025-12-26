@@ -179,7 +179,7 @@ export default function Administration() {
                                             </Button>
                                             <Button 
                                                 as={Link} 
-                                                to={`/user/detail/${user.id}`} 
+                                                to={`/administration/detail/${user.id}`} 
                                                 className="me-2" 
                                                 variant='primary' 
                                                 size="sm"

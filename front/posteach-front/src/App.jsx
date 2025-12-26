@@ -9,6 +9,7 @@ import FooterComponent from './Components/FooterComponent/FooterComponent.jsx'
 import Home from './Pages/Home/Home.jsx'
 import Administration from './Pages/Administration/Administration.jsx'
 import AdministrationCreate from './Pages/Administration/Administration.Create.jsx'
+import AdmministrationDetail from './Pages/Administration/Administration.Detail.jsx'
 
 
 function App() {
@@ -21,8 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/administration" element={<Administration />} />
         <Route path="/administration/create" element={<AdministrationCreate />} />
-        {/* <Route path="/administration/edit/:id" element={<AdministrationEdit />} />
-        <Route path="/administration/detail/:id" element={<AdministrationDetail />} /> */}
+        <Route path="/administration/detail/:id" element={<AdmministrationDetail />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>
