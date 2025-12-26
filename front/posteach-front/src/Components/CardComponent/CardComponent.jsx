@@ -6,12 +6,13 @@ import { useNavigate, Link } from 'react-router-dom';
 export default function CardComponent({ title, text, img, link }) {
 
     const cardBodyStyle = {
-        minHeight: '150px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flexGrow: 1, 
-    };
+        minHeight: '150px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        gap: '0.5rem',
+        flexGrow: 1,
+    };
     
     const clickableCardStyle = {
         cursor: 'pointer',
@@ -50,7 +51,10 @@ export default function CardComponent({ title, text, img, link }) {
                 <Card.Body
                     style={cardBodyStyle}>
                     <Card.Title>{title}</Card.Title>
-                    <Card.Text>
+                    <Card.Text
+                    style={{
+                        textAlign: 'justify',
+                    }}>
                         {text}
                     </Card.Text>
                 </Card.Body>

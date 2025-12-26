@@ -4,7 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import PageTitle from '../../Components/PageTitle/PageTitle.jsx'
 
 import info_read_post from '../../assets/info_read_post.png';
-import old_man_worried from '../../assets/old_man_worried.png';
+import config_img from '../../assets/config.png';
+import teachers from '../../assets/teachers.png';
 import CardComponent from '../../Components/CardComponent/CardComponent.jsx';
 
 
@@ -17,16 +18,23 @@ export default function Home() {
     const initialCards = [
         {
             id: 1,
-            title: 'Card 1',
-            text: 'Este é o texto do Card 1.',
+            title: 'Ler Posts',
+            text: 'Encontre postagens de temas diversos criadas pelos professores na plataforma.',
             img: info_read_post,
             link: '/posts/'
         },
         {
             id: 2,
-            title: 'Card 2',
-            text: 'Este é o texto do Card 2.',
-            img: old_man_worried,
+            title: 'Meus Posts',
+            text: 'Crie seus próprios posts ou edite suas postagens existentes na plataforma de forma fácil e rápida. Essa área é exclusiva para professores. No futuro teremos teremos uma área dedicada para postagem de alunos.',
+            img: teachers,
+            link: '#'
+        },
+        {
+            id: 3,
+            title: 'Configurações de Administração',
+            text: 'Gerencie usuários e premições na plataforma.',
+            img: config_img,
             link: '#'
         }
     ]
