@@ -34,11 +34,10 @@ export default function Home() {
         <Container style={{ paddingTop: '6rem' }}>
             <PageTitle title={`Bem vindo, ${username.username}!`} />
             <div style={{
-                marginTop: '1rem',
+                marginTop: '3rem',
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '1.5rem',
-                marginTop: '2rem'
             }}>
                 {initialCards.map(card => (
                     <CardComponent key={card.id} title={card.title} text={card.text} img={card.img} link={card.link} />
