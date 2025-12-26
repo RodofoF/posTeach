@@ -17,10 +17,8 @@ export default function CardComponent({ title, text, img, link }) {
         cursor: 'pointer',
         transition: 'transform 0.2s, box-shadow 0.2s',
         height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    };
-    
+        width: '100%',
+}
     const handleMouseOver = (e) => {
         e.currentTarget.style.transform = 'translateY(-5px)';
         e.currentTarget.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
@@ -33,31 +31,31 @@ export default function CardComponent({ title, text, img, link }) {
 
 
     return (
-        <div>
-            <Link to={link}>
-                <Row xs={1} md={2} className="g-4">
-                    <Col>
-                        <Card
-                            style={clickableCardStyle}
-                            onMouseOver={handleMouseOver}
-                            onMouseOut={handleMouseOut}
-                        >
-                            <Card.Img
-                                variant="top"
-                                src={img}
-                            />
-                            <Card.Body
-                                style={cardBodyStyle}>
-                                <Card.Title>{title}</Card.Title>
-                                <Card.Text>
-                                    {text}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Link>
-        </div>
+        <Link to={link} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
+            <Card
+                style={clickableCardStyle}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+            >
+                <Card.Img
+                    variant="top"
+                    src={img}
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                        objectFit: 'cover',
+                        maxHeight: '400px'
+                    }}
+                />
+                <Card.Body
+                    style={cardBodyStyle}>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>
+                        {text}
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </Link>
     );
 }
 

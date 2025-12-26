@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import PageTitle from '../../Components/PageTitle/PageTitle.jsx'
 
 import info_read_post from '../../assets/info_read_post.png';
+import old_man_worried from '../../assets/old_man_worried.png';
 import CardComponent from '../../Components/CardComponent/CardComponent.jsx';
 
 
@@ -25,7 +26,7 @@ export default function Home() {
             id: 2,
             title: 'Card 2',
             text: 'Este é o texto do Card 2.',
-            img: info_read_post,
+            img: old_man_worried,
             link: '#'
         }
     ]
@@ -33,16 +34,13 @@ export default function Home() {
     return (
         <Container style={{ paddingTop: '6rem' }}>
             <PageTitle title={`Bem vindo, ${username.username}!`} />
-            <div style={{
-                marginTop: '3rem',
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '1.5rem',
-            }}>
+            <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem' }}>
                 {initialCards.map(card => (
-                    <CardComponent key={card.id} title={card.title} text={card.text} img={card.img} link={card.link} />
+                    <Col key={card.id}>
+                        <CardComponent title={card.title} text={card.text} img={card.img} link={card.link} />
+                    </Col>
                 ))}
-            </div>
+            </Row>
         </Container>
     );
 }
