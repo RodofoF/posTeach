@@ -21,14 +21,14 @@ export default function Home() {
             title: 'Ler Posts',
             text: 'Encontre postagens de temas diversos criadas pelos professores na plataforma.',
             img: info_read_post,
-            link: '/posts/'
+            link: '/posts'
         },
         {
             id: 2,
             title: 'Meus Posts',
             text: 'Crie seus próprios posts ou edite suas postagens existentes na plataforma de forma fácil e rápida. Essa área é exclusiva para professores. No futuro teremos teremos uma área dedicada para postagem de alunos.',
             img: teachers,
-            link: '#'
+            link: '/myposts'
         },
         {
             id: 3,

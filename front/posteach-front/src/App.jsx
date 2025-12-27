@@ -12,6 +12,13 @@ import AdministrationCreate from './Pages/Administration/Administration.Create.j
 import AdmministrationDetail from './Pages/Administration/Administration.Detail.jsx'
 import AdministrationEdit from './Pages/Administration/Administration.Edit.jsx'
 
+import Posts from './Pages/Posts/Posts.jsx'
+import PostsCreate from './Pages/Posts/Posts.Create.jsx'
+import PostsDetail from './Pages/Posts/Post.Detail.jsx'
+import PostsEdit from './Pages/Posts/Posts.Edit.jsx'
+
+import MyPosts from './Pages/MyPosts/MyPosts.jsx';
+
 
 function App() {
   return (
@@ -25,6 +32,11 @@ function App() {
         <Route path="/administration/create" element={<AdministrationCreate />} />
         <Route path="/administration/detail/:id" element={<AdmministrationDetail />} />
         <Route path="/administration/edit/:id" element={<AdministrationEdit />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/create" element={<PostsCreate />} />
+        <Route path="/posts/detail/:id" element={<PostsDetail />} />
+        <Route path="/posts/edit/:id" element={<PostsEdit />} />
+        <Route path="/myposts" element={<MyPosts />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>
