@@ -170,7 +170,7 @@ export default function Administration() {
                                         <td className="text-center">
                                             <Button 
                                                 as={Link} 
-                                                to={`/user/edit/${user.id}`} 
+                                                to={`/administration/edit/${user.id}`} 
                                                 className="me-2" 
                                                 variant='info' 
                                                 size="sm"

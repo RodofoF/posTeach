@@ -21,8 +21,7 @@ export default function AdministrationCreate() {
         profile_id: yup.number()
             .typeError('Selecione um perfil válido')
             .required('O perfil é obrigatório')
-            .oneOf(allowedProfiles, 'Perfil selecionado é inválido.') 
-            .min(1, 'Perfil inválido.'),
+            .oneOf(allowedProfiles, 'Perfil selecionado é inválido.'),
         username: yup.string().required('O nome de usuário é obrigatório'),
         email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
         userdescription: yup.string(),
