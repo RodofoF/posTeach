@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Nav, Navbar, Offcanvas, NavDropdown } from "react-bootstrap"; 
-import { useState } from "react"; 
+import { Container, Nav, Navbar, Offcanvas, NavDropdown } from "react-bootstrap";
+import { useState } from "react";
 
 import posteach_icon_side from "../../assets/posteach_icon_side_bg.png"
 
 export default function Header() {
-  const expand = "lg"; 
+  const expand = "lg";
   const navigate = useNavigate();
-  
+
   const isAuthenticated = localStorage.getItem('userToken');
 
   const [showMenu, setShowMenu] = useState(false);
@@ -27,17 +27,17 @@ export default function Header() {
   };
 
   const userIconSvg = (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width="20" 
-      height="20" 
-      fill="currentColor" 
-      className="bi bi-person-circle" 
-      viewBox="0 0 16 16" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="currentColor"
+      className="bi bi-person-circle"
+      viewBox="0 0 16 16"
       style={{ marginRight: '8px', verticalAlign: 'middle' }}
-    > 
-      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/> 
-      <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    >
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+      <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
     </svg>
   );
 
@@ -45,11 +45,11 @@ export default function Header() {
     <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" fixed="top">
       <Container fluid>
         <Navbar.Brand as={Link} to={isAuthenticated ? "/" : "/login"}>
-          <img src={posteach_icon_side} alt="Logo do sistema." width="120px"/>
+          <img src={posteach_icon_side} alt="Logo do sistema." width="120px" />
         </Navbar.Brand>
         {isAuthenticated && (
           <>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} className="ms-auto" onClick={handleToggle}/>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} className="ms-auto" onClick={handleToggle} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -64,45 +64,21 @@ export default function Header() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3"> 
+                <Nav className="justify-content-end flex-grow-1 pe-3">
                   {isAuthenticated && (
                     <>
                       <Nav.Link as={Link} to="/" onClick={handleNavLinkClick}>
                         Home
                       </Nav.Link>
-                      {/* <NavDropdown 
-                          title="Check List" 
-                          id={`offcanvasNavbarDropdown-expand-${expand}`} 
-                      >
-                          <NavDropdown.Item as={Link} to="/check/cn" onClick={handleNavLinkClick}>
-                              C/N
-                          </NavDropdown.Item>
-                          <NavDropdown.Item as={Link} to="/check/hpa" onClick={handleNavLinkClick}>
-                              HPA
-                          </NavDropdown.Item>
-                      </NavDropdown> */}
-                      {/* <NavDropdown 
-                          title="Antenas" 
-                          id={`offcanvasNavbarDropdown-expand-${expand}`} 
-                      >
-                          <NavDropdown.Item as={Link} to="/antenas/" onClick={handleNavLinkClick}>
-                              Detalhes
-                          </NavDropdown.Item>
-                          <NavDropdown.Item as={Link} to="/antenas/maps" onClick={handleNavLinkClick}>
-                              Mapas
-                          </NavDropdown.Item>
-                      </NavDropdown> */}
-                      <NavDropdown 
-                          title="Usuário" 
-                          id={`offcanvasNavbarDropdown-expand-${expand}`} 
-                      >
-                          <NavDropdown.Item as={Link} to="/users/perfil" onClick={handleNavLinkClick}>
-                              Minhas Informações
-                          </NavDropdown.Item>
-                          <NavDropdown.Item as={Link} to="/users/" onClick={handleNavLinkClick}>
-                              Lista de Usuarios
-                          </NavDropdown.Item>
-                      </NavDropdown>
+                      <Nav.Link as={Link} to="/administration" onClick={handleNavLinkClick}>
+                        Usuários
+                      </Nav.Link>
+                      <Nav.Link as={Link} to="/posts" onClick={handleNavLinkClick}>
+                        Posts
+                      </Nav.Link>
+                      <Nav.Link as={Link} to="/posts/mine" onClick={handleNavLinkClick}>
+                        Meus Posts
+                      </Nav.Link>
                       <Nav.Link onClick={handleLogout} style={{ cursor: 'pointer' }}>
                         Sair
                       </Nav.Link>
