@@ -21,7 +21,8 @@ export default function Home() {
             title: 'Ler Posts',
             text: 'Encontre postagens de temas diversos criadas pelos professores na plataforma.',
             img: info_read_post,
-            link: '/posts'
+            link: '/posts',
+            updatedAt: '1234'
         },
         {
             id: 2,
@@ -45,7 +46,7 @@ export default function Home() {
             <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem' }}>
                 {initialCards.map(card => (
                     <Col key={card.id}>
-                        <CardComponent title={card.title} text={card.text} img={card.img} link={card.link} />
+                        <CardComponent title={card.title} text={card.text} img={card.img} link={card.link} updatedAt={card.updatedAt} logInfo={false}/>
                     </Col>
                 ))}
             </Row>
