@@ -13,22 +13,22 @@ export default function CardComponent({ title, text, img, link }) {
         gap: '0.5rem',
         flexGrow: 1,
     };
-    
-    const clickableCardStyle = {
-        cursor: 'pointer',
-        transition: 'transform 0.2s, box-shadow 0.2s',
-        height: '100%',
-        width: '100%',
-}
-    const handleMouseOver = (e) => {
-        e.currentTarget.style.transform = 'translateY(-5px)';
-        e.currentTarget.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
-    };
 
-    const handleMouseOut = (e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    };
+    const clickableCardStyle = {
+        cursor: 'pointer',
+        transition: 'transform 0.2s, box-shadow 0.2s',
+        height: '100%',
+        width: '100%',
+    }
+    const handleMouseOver = (e) => {
+        e.currentTarget.style.transform = 'translateY(-5px)';
+        e.currentTarget.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
+    };
+
+    const handleMouseOut = (e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    };
 
 
     return (
@@ -52,9 +52,9 @@ export default function CardComponent({ title, text, img, link }) {
                     style={cardBodyStyle}>
                     <Card.Title>{title}</Card.Title>
                     <Card.Text
-                    style={{
-                        textAlign: 'justify',
-                    }}>
+                        style={{
+                            textAlign: 'justify',
+                        }}>
                         {text}
                     </Card.Text>
                 </Card.Body>

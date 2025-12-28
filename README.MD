@@ -13,3 +13,7 @@ Como se trata de um projeto de pequeno porte, estamos organizando o projeto do f
 ## Pendendias
 Front e Back
 Preparar o front e back para receber imagem do usuário
+
+Front
+Tabela de usuários quebra em telas pequenas
+Ajuste nos endpoints, se vc não clicar em sair o token fica vencido e salvo no browser e deixa vc navegar pela plataforma, mas não consegue fazer nada

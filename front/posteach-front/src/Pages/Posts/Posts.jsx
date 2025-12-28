@@ -1,12 +1,16 @@
+import { Container, Alert, Card, Row, Col, Button, Form } from 'react-bootstrap';
+import PageTitle from '../../Components/PageTitle/PageTitle.jsx'
+import CardComponent from '../../Components/CardComponent/CardComponent.jsx';
+
 export default function Posts() {
     return (
-        <div>
-            <h1>Posts Page</h1>
-            <h1>Posts Page</h1>
-            <h1>Posts Page</h1>
-            <h1>Posts Page</h1>
-            <h1>Posts Page</h1>
-            <h1>Posts Page</h1>
-        </div>
+        <Container style={{ paddingTop: '6rem' }}>
+            <PageTitle title={`Posts`} />
+            <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem' }}>
+                    <Col>
+                        <CardComponent />
+                    </Col>
+            </Row>
+        </Container>
     )
 }
