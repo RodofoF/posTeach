@@ -109,7 +109,7 @@ export default function Posts() {
             <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem' }}>
                 {filteredPosts.map(post => (
                     <Col key={post.id}>
-                        <CardComponent title={post.title} text={post.content} img={null} link={`/posts/detail/${post.id}`} updatedAt={post.updatedAt} user_id={post.user_id} username={post.user.username} logInfo={true}/>
+                        <CardComponent title={post.title} text={post.subtitle} img={null} link={`/posts/detail/${post.id}`} updatedAt={post.updatedAt} user_id={post.user_id} username={post.user.username} logInfo={true}/>
                     </Col>
                 ))}
             </Row>
