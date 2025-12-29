@@ -21,14 +21,15 @@ export default function MyPosts() {
     // Full Admin (0) e Professor (1)
     const isAdmin = !!(userInfo && (userInfo.profile_id === 0 || userInfo.profile_id === 1));
 
-    const [users, setUsers] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
+    
     useEffect(() => {
-        async function fetchUsers() {
-            setLoading(true); 
+        async function fetchPosts() {
+            setLoading(true);
             try {
                 if (!token) {
                     setError('Token não encontrado, faça login novamente');
@@ -42,29 +43,51 @@ export default function MyPosts() {
                     }
                 });
                 if (!response.ok) {
-                    const errorBody = await response.text(); 
+                    const errorBody = await response.text();
                     throw new Error(`Erro na requisição: ${response.status} - ${errorBody || response.statusText}`);
                 }
                 const data = await response.json();
                 // Suporta resposta como array ou objeto com propriedade 'data'
-                setUsers(Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []);
+                setPosts(Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []);
+                console.log('Posts carregados:', data);
             } catch (error) {
-                console.error('Erro ao carregar Usuários:', error);
-                setError('Erro ao carregar Usuários: ' + error.message);
+                console.error('Erro ao carregar Posts:', error);
+                setError('Erro ao carregar Posts: ' + error.message);
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         }
-        fetchUsers();
-    }, [token, url]); 
+        fetchPosts();
+    }, [token, url]);
 
-    const handleDelete = async (userId, userName) => {
-        if (!isAdmin || !window.confirm(`Tem certeza que deseja excluir o usuário ${userName}? Esta ação é irreversível.`)) {
+    const filteredPosts = posts.filter(post => {
+        const searchTermLower = searchTerm.toLowerCase();
+        return (
+            (post.title && post.title.toLowerCase().includes(searchTermLower)) ||
+            (post.content && post.content.toLowerCase().includes(searchTermLower)) ||
+            (post.user && post.user.username && post.user.username.toLowerCase().includes(searchTermLower))
+        );
+    });
+
+    if (error) {
+        return <Container style={{ paddingTop: '4rem' }}><Alert variant="danger">{error}</Alert></Container>
+    }
+
+    if (loading) {
+        return <Container className="text-center" style={{ paddingTop: '8rem' }}><Spinner animation="border" /></Container>;
+    }
+
+    const hasPosts = posts.length > 0;
+    const isSearchEmpty = searchTerm.length > 0 && filteredPosts.length === 0;
+    const isListEmpty = !hasPosts && !loading && !error;
+
+    const handleDelete = async (postId, postTitle) => {
+        if (!isAdmin || !window.confirm(`Tem certeza que deseja excluir o post ${postTitle}? Esta ação é irreversível.`)) {
             return;
         }
 
         try {
-            const response = await fetch(`${url}/${userId}`, {
+            const response = await fetch(`${url}/${postId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -75,32 +98,12 @@ export default function MyPosts() {
                 throw new Error('Falha ao excluir o usuário.');
             }
 
-            setUsers(currentUsers => currentUsers.filter(u => u.id !== userId));
+            setPosts(currentPosts => currentPosts.filter(p => p.id !== postId));
         } catch (error) {
             console.error('Erro ao excluir usuário:', error);
             setError('Erro ao excluir usuário: ' + error.message);
         }
     };
-
-    const filteredUsers = users.filter(user => {
-        const searchTermLower = searchTerm.toLowerCase();
-        return (
-            (user.username && user.username.toLowerCase().includes(searchTermLower)) || 
-            (user.email && user.email.toLowerCase().includes(searchTermLower))
-        );
-    });
-
-    if (error) {
-        return <Container style={{ paddingTop: '4rem' }}><Alert variant="danger">{error}</Alert></Container>
-    }
-    
-    if (loading) {
-        return <Container className="text-center" style={{ paddingTop: '8rem' }}><Spinner animation="border" /></Container>;
-    }
-
-    const hasUsers = users.length > 0;
-    const isSearchEmpty = searchTerm.length > 0 && filteredUsers.length === 0;
-    const isListEmpty = !hasUsers && !loading && !error;
 
 
     return (
@@ -120,7 +123,7 @@ export default function MyPosts() {
                     <Col xs={12} md={3} lg={2} className="text-md-end mt-2 mt-md-0">
                         <p className="mb-0">
                             Total de Posts: 
-                            <span className="ms-2 fw-bold">{users.length}</span>
+                            <span className="ms-2 fw-bold">{posts.length}</span>
                         </p>
                     </Col>
                 </Row>
@@ -150,27 +153,27 @@ export default function MyPosts() {
                     </div>
                 )}
                 
-                {filteredUsers.length > 0 && (
+                {filteredPosts.length > 0 && (
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
-                                <th>Usuário</th>
-                                <th>E-mail</th>
-                                <th>Perfil</th>
+                                <th>Titulo</th>
+                                <th>Subtitulo</th>
+                                <th>Atualização</th>
                                 {isAdmin && <th className="text-center">Ações</th>}
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredUsers.map(user => (
-                                <tr key={user.id}>
-                                    <td>{user.username}</td>
-                                    <td>{user.email}</td>
-                                    <td>{getProfileName(user.profile_id)}</td>
+                            {filteredPosts.map(posts => (
+                                <tr key={posts.id}>
+                                    <td>{posts.title}</td>
+                                    <td>{posts.subtitle}</td>
+                                    <td>{new Date(posts.updatedAt).toLocaleString('pt-BR')}</td>
                                     {isAdmin && (
                                         <td className="text-center">
                                             <Button 
                                                 as={Link} 
-                                                to={`/administration/edit/${user.id}`} 
+                                                to={`/posts/edit/${posts.id}`} 
                                                 className="me-2" 
                                                 variant='info' 
                                                 size="sm"
@@ -179,7 +182,7 @@ export default function MyPosts() {
                                             </Button>
                                             <Button 
                                                 as={Link} 
-                                                to={`/administration/detail/${user.id}`} 
+                                                to={`/posts/detail/${posts.id}`} 
                                                 className="me-2" 
                                                 variant='primary' 
                                                 size="sm"
@@ -189,7 +192,7 @@ export default function MyPosts() {
                                             <Button 
                                                 variant='danger' 
                                                 size="sm" 
-                                                onClick={() => handleDelete(user.id, user.username)}
+                                                onClick={() => handleDelete(posts.id, posts.title)}
                                             >
                                                 Excluir
                                             </Button>
