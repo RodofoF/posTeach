@@ -5,10 +5,11 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import PageTitle from '../../Components/PageTitle/PageTitle';
 import userDefaulftImage from '../../Assets/user_default.png';
+import { use } from 'react';
 
 export default function PostsCreate() {
 
-    const url = `${import.meta.env.VITE_API_URL}/users`;
+    const url = `${import.meta.env.VITE_API_URL}/posts`;
     const token = localStorage.getItem('userToken');
     
     const navigate = useNavigate();
@@ -18,17 +19,11 @@ export default function PostsCreate() {
     const allowedProfiles = [0, 1, 2];
 
     const schema = yup.object().shape({
-        profile_id: yup.number()
-            .typeError('Selecione um perfil válido')
-            .required('O perfil é obrigatório')
-            .oneOf(allowedProfiles, 'Perfil selecionado é inválido.'),
-        username: yup.string().required('O nome de usuário é obrigatório'),
-        email: yup.string().email('Digite um e-mail válido').required('O e-mail é obrigatório'),
-        userdescription: yup.string(),
-        userimage: yup.string(),
-        password: yup.string()
-            .required('A senha é obrigatória')
-            .min(6, 'A senha deve ter pelo menos 6 caracteres'),
+        user_id: yup.number(),
+        title: yup.string().required('O título é obrigatório'),
+        subtitle: yup.string().required('O subtítulo é obrigatório'),
+        content: yup.string().required('O conteúdo é obrigatório'),
+        postImage: yup.mixed().nullable(),
     });
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -61,7 +56,7 @@ export default function PostsCreate() {
                 resetForm();
                 
                 setTimeout(() => {
-                    navigate('/administration');
+                    navigate(-1);
                 }, 1500); 
 
             } else {
@@ -86,105 +81,82 @@ export default function PostsCreate() {
 
     return (
         <Container style={{ paddingTop: '4rem', marginBottom: '5rem'}}>
-            <PageTitle title={'Criando Usuário: '} button={true} /> 
+            <PageTitle title={'Criando Post: '} button={true} /> 
             <Formik
                 validationSchema={schema}
                 onSubmit={handleSubmit}
                 initialValues={{
-                    profile_id: '', 
-                    username: '',
-                    email: '',
-                    userdescription: '',
-                    userimage: userDefaulftImage,
-                    password: '',
+                    user_id: '',
+                    title: '',
+                    subtitle: '',
+                    content: '',
+                    postImage: null,
                 }}
             >
                 {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
                     <Form className='mb-6' noValidate onSubmit={handleSubmit}>
-                        
-                        <Form.Group className="mb-3" controlId="formProfileId">
-                            <Form.Label>Perfil do Usuário</Form.Label>
-                            <Form.Select 
-                                name="profile_id" 
-                                value={values.profile_id} 
-                                onChange={handleChange} 
-                                isInvalid={touched.profile_id && !!errors.profile_id}
-                            >
-                                <option value="" disabled>Selecione o Perfil</option>
-                                <option value="0">0 - Full Admin</option>
-                                <option value="1">1 - Professor</option>
-                                <option value="2">2 - Aluno</option>
-                            </Form.Select>
-                            <Form.Control.Feedback type="invalid">{errors.profile_id}</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formEmail">
-                            <Form.Label>E-mail</Form.Label>
-                            <Form.Control 
-                                type="email" 
-                                name="email" 
-                                value={values.email} 
-                                onChange={handleChange} 
-                                isInvalid={touched.email && !!errors.email} 
+                        <Form.Group className="mb-3" controlId="user_id">
+                            <Form.Label>Usuário</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="user_id"
+                                value={values.user_id}
+                                onChange={handleChange}
+                                isInvalid={!!errors.user_id && touched.user_id}
                             />
-                            <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formPassword">
-                            <Form.Label>Senha</Form.Label>
-                            <Form.Control 
-                                type="password" 
-                                name="password" 
-                                value={values.password} 
-                                onChange={handleChange} 
-                                isInvalid={touched.password && !!errors.password} 
-                            />
-                            <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{errors.user_id}</Form.Control.Feedback>
                         </Form.Group>
                         
-                        <Form.Group className="mb-3" controlId="formUsername">
-                            <Form.Label>Nome de Usuário</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                name="username" 
-                                value={values.username} 
-                                onChange={handleChange} 
-                                isInvalid={touched.username && !!errors.username} 
+                        <Form.Group className="mb-3" controlId="title">
+                            <Form.Label>Título</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="title"
+                                value={values.title}
+                                onChange={handleChange}
+                                isInvalid={!!errors.title && touched.title}
                             />
-                            <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
                         </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formUserDescription">
-                            <Form.Label>Descrição do Usuário</Form.Label>
-                            <Form.Control 
-                                as="textarea" 
+                        <Form.Group className="mb-3" controlId="subtitle">
+                            <Form.Label>Subtítulo</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="subtitle"
+                                value={values.subtitle}
                                 rows={3}
-                                name="userdescription" 
-                                value={values.userdescription} 
-                                onChange={handleChange} 
-                                isInvalid={touched.userdescription && !!errors.userdescription} 
+                                onChange={handleChange}
+                                isInvalid={!!errors.subtitle && touched.subtitle}
                             />
-                            <Form.Control.Feedback type="invalid">{errors.userdescription}</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{errors.subtitle}</Form.Control.Feedback>
                         </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formUserImage">
-                            <Form.Label>URL da Imagem do Usuário</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                name="userimage" 
-                                value={values.userimage} 
-                                onChange={handleChange} 
-                                isInvalid={touched.userimage && !!errors.userimage} 
-                                disabled={true}
+                        <Form.Group className="mb-3" controlId="content">
+                            <Form.Label>Conteúdo</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="content"
+                                value={values.content}
+                                rows={16}
+                                onChange={handleChange}
+                                isInvalid={!!errors.content && touched.content}
                             />
-                            <Form.Control.Feedback type="invalid">{errors.userimage}</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{errors.content}</Form.Control.Feedback>
                         </Form.Group>
-
-
+                        <Form.Group className="mb-3" controlId="postImage">
+                            <Form.Label>Imagem do Post</Form.Label>
+                            <Form.Control
+                                type="file"
+                                name="postImage"
+                                onChange={handleChange}
+                                isInvalid={!!errors.postImage && touched.postImage}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors.postImage}</Form.Control.Feedback>
+                        </Form.Group>
                         {submitError && <Alert variant="danger">{submitError}</Alert>}
                         {submitSuccess && <Alert variant="success">{submitSuccess}</Alert>}
 
                         <Button type="submit" variant="success" disabled={isSubmitting}>
-                            {isSubmitting ? 'Criando...' : 'Criar Usuário'}
+                            {isSubmitting ? 'Criando...' : 'Criar Post'}
                         </Button>
                     </Form>
                 )}
