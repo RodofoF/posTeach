@@ -76,7 +76,7 @@ export default function Header() {
                       <Nav.Link as={Link} to="/posts" onClick={handleNavLinkClick}>
                         Posts
                       </Nav.Link>
-                      <Nav.Link as={Link} to="/posts/mine" onClick={handleNavLinkClick}>
+                      <Nav.Link as={Link} to="/myposts" onClick={handleNavLinkClick}>
                         Meus Posts
                       </Nav.Link>
                       <Nav.Link onClick={handleLogout} style={{ cursor: 'pointer' }}>

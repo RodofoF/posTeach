@@ -11,6 +11,7 @@ export default function PostsCreate() {
 
     const url = `${import.meta.env.VITE_API_URL}/posts`;
     const token = localStorage.getItem('userToken');
+    const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
     
     const navigate = useNavigate();
     const [submitError, setSubmitError] = useState('');
@@ -86,7 +87,7 @@ export default function PostsCreate() {
                 validationSchema={schema}
                 onSubmit={handleSubmit}
                 initialValues={{
-                    user_id: '',
+                    user_id: userInfo?.id || '',
                     title: '',
                     subtitle: '',
                     content: '',
@@ -100,8 +101,9 @@ export default function PostsCreate() {
                             <Form.Control
                                 type="text"
                                 name="user_id"
-                                value={values.user_id}
+                                value={values.user_id + ' - ' + userInfo?.username} 
                                 onChange={handleChange}
+                                disabled
                                 isInvalid={!!errors.user_id && touched.user_id}
                             />
                             <Form.Control.Feedback type="invalid">{errors.user_id}</Form.Control.Feedback>
