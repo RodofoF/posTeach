@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import PageTitle from '../../Components/PageTitle/PageTitle';
-import userDefaulftImage from '../../Assets/user_default.png';
-import { use } from 'react';
+
 
 export default function PostsCreate() {
 
