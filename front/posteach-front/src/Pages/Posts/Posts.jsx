@@ -106,7 +106,7 @@ export default function Posts() {
                     </div>
                 )}
 
-            <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem' }}>
+            <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem', minHeight: '60vh' }}>
                 {filteredPosts.map(post => (
                     <Col key={post.id}>
                         <CardComponent title={post.title} text={post.subtitle} img={null} link={`/posts/detail/${post.id}`} updatedAt={post.updatedAt} user_id={post.user_id} username={post.user.username} logInfo={true}/>

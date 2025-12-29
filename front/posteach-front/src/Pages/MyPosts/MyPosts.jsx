@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 import PageTitle from "../../Components/PageTitle/PageTitle";
 
 export default function MyPosts() {
-    const profileMap = {
-        0: 'Full Admin',
-        1: 'Professor',
-        2: 'Aluno',
-    };
-    const getProfileName = (profileId) => { 
-        return profileMap[profileId] || 'Desconhecido';
-    };
+
     const baseUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
     const url = `${baseUrl}/posts`;
     const token = localStorage.getItem('userToken');
@@ -36,6 +29,11 @@ export default function MyPosts() {
                     setLoading(false);
                     return;
                 }
+                if (!userInfo?.id) {
+                    setError('Informações do usuário não encontradas. Faça login novamente.');
+                    setLoading(false);
+                    return;
+                }
                 const response = await fetch(url, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -48,8 +46,11 @@ export default function MyPosts() {
                 }
                 const data = await response.json();
                 // Suporta resposta como array ou objeto com propriedade 'data'
-                setPosts(Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []);
-                console.log('Posts carregados:', data);
+                const allPosts = Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : [];
+                const userId = userInfo?.id;
+                const onlyMine = userId ? allPosts.filter(p => p.user_id === userId) : [];
+                setPosts(onlyMine);
+                console.log('Posts carregados (apenas do usuário logado):', onlyMine);
             } catch (error) {
                 console.error('Erro ao carregar Posts:', error);
                 setError('Erro ao carregar Posts: ' + error.message);
@@ -179,15 +180,6 @@ export default function MyPosts() {
                                                 size="sm"
                                             >
                                                 Editar
-                                            </Button>
-                                            <Button 
-                                                as={Link} 
-                                                to={`/posts/detail/${posts.id}`} 
-                                                className="me-2" 
-                                                variant='primary' 
-                                                size="sm"
-                                            >
-                                                Detalhes
                                             </Button>
                                             <Button 
                                                 variant='danger' 
