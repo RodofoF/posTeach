@@ -17,6 +17,7 @@ Preparar o front e back para receber imagem do usuário
 Front
 Tabela de usuários quebra em telas pequenas
 Ajuste nos endpoints, se vc não clicar em sair o token fica vencido e salvo no browser e deixa vc navegar pela plataforma, mas não consegue fazer nada
+Criar componente para o filtro enviando somente as props
 
 ## Destaque
 Aproveitamento de componentes customizados, para padronização da plataforma. Adicionando condições aos commponentes para reutilizalos
