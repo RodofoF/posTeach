@@ -1,0 +1,39 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'front/posteach-front/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'front/posteach-front/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: front/posteach-front/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: ./front/posteach-front
+        run: npm ci
+      
+      - name: Build
+        working-directory: ./front/posteach-front
+        run: npm run build
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-build
+          path: front/posteach-front/dist

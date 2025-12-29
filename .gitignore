@@ -6,3 +6,19 @@ back/node_modules
 /back/src/DS_Store
 /back/backups
 /back/src/DS_Store
+
+# Dados MySQL locais
+back/mysql_data/
+
+# Uploads locais
+back/uploads_data/
+back/public/uploads_data/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Node
+node_modules/
+npm-debug.log
