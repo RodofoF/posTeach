@@ -84,6 +84,9 @@ router.get('/:id',authenticateToken, authorizeUserOrAdmin, postController.getPos
  *               title:
  *                 type: string
  *                 example: Título do Post
+ *               subtitle:
+ *                 type: string
+ *                 example: Subtítulo do Post
  *               content:
  *                 type: string
  *                 example: Conteúdo completo do post...
@@ -132,6 +135,8 @@ router.post('/',authenticateToken, authorizeAdmin, uploadPost.single('postimage'
  *             type: object
  *             properties:
  *               title:
+ *                 type: string
+ *               subtitle:
  *                 type: string
  *               content:
  *                 type: string

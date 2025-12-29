@@ -80,7 +80,7 @@ export default function Posts() {
                     <Col xs={12} md={9} lg={10}>
                         <Form.Control 
                             type="text" 
-                            placeholder="Buscar posts por título ou conteúdo ..." 
+                            placeholder="Buscar posts por título ou conteúdo..." 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
