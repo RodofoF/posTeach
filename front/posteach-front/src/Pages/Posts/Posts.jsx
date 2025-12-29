@@ -55,7 +55,8 @@ export default function Posts() {
         const searchTermLower = searchTerm.toLowerCase();
         return (
             (post.title && post.title.toLowerCase().includes(searchTermLower)) ||
-            (post.content && post.content.toLowerCase().includes(searchTermLower))
+            (post.content && post.content.toLowerCase().includes(searchTermLower)) ||
+            (post.user && post.user.username && post.user.username.toLowerCase().includes(searchTermLower))
         );
     });
 
@@ -80,7 +81,7 @@ export default function Posts() {
                     <Col xs={12} md={9} lg={10}>
                         <Form.Control 
                             type="text" 
-                            placeholder="Buscar posts por título ou conteúdo..." 
+                            placeholder="Buscar posts por título, conteúdo ou criador do post..." 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -108,7 +109,7 @@ export default function Posts() {
             <Row xs={1} md={2} className="g-4" style={{ marginTop: '2rem' }}>
                 {filteredPosts.map(post => (
                     <Col key={post.id}>
-                        <CardComponent title={post.title} text={post.content} img={null} link={`/posts/detail/${post.id}`} updatedAt={new Date(post.updated_at).toLocaleDateString()} logInfo={true}/>
+                        <CardComponent title={post.title} text={post.content} img={null} link={`/posts/detail/${post.id}`} updatedAt={post.updatedAt} user_id={post.user_id} username={post.user.username} logInfo={true}/>
                     </Col>
                 ))}
             </Row>

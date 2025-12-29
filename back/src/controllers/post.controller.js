@@ -1,10 +1,17 @@
 const Post = require('../models/post.model');
+const User = require('../models/users.model');
 const fs = require('fs');
 
 // GET - Listar todos os posts
 const getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.findAll();
+        const posts = await Post.findAll({
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['id', 'username']
+            }]
+        });
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -15,7 +22,13 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
     try {
         const { id } = req.params;
-        const post = await Post.findByPk(id);
+        const post = await Post.findByPk(id, {
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['id', 'username']
+            }]
+        });
         if (post) {
             res.status(200).json(post);
         } else {
@@ -56,7 +69,13 @@ const updatePost = async (req, res) => {
         }   
         const [updated] = await Post.update(postData, { where: { id } });
         if (updated) {
-            const updatedPost = await Post.findByPk(id);
+            const updatedPost = await Post.findByPk(id, {
+                include: [{
+                    model: User,
+                    as: 'user',
+                    attributes: ['id', 'username']
+                }]
+            });
             res.status(200).json(updatedPost);
         } else {
             res.status(404).json({ message: 'Post não encontrado' });

@@ -3,7 +3,7 @@ import { Container, Alert, Card, Row, Col, Button, Form } from 'react-bootstrap'
 import { useNavigate, Link } from 'react-router-dom';
 
 
-export default function CardComponent({ title, text, img, link, logInfo=false, updatedAt }) {
+export default function CardComponent({ title, text, img, link, logInfo=false, updatedAt, user_id, username }) {
 
     const cardBodyStyle = {
         minHeight: '150px',
@@ -57,16 +57,13 @@ export default function CardComponent({ title, text, img, link, logInfo=false, u
                         }}>
                         {text}
                     </Card.Text>
-                    <Card.Text>
-                        {logInfo && (
-                            <div>
-                                <hr />
-                                <p style={{fontSize: '0.8rem', color: 'gray', textAlign: 'right', margin: '0'}}>Atualizado em: {updatedAt}</p>
-                            </div>
-                        )}
-                    </Card.Text>
-                    <Card.Text>
-                    </Card.Text>
+                    {logInfo && (
+                        <div>
+                            <hr />
+                            <p style={{fontSize: '0.8rem', color: 'gray', textAlign: 'right', margin: '0'}}>Criado por: {username}</p>
+                            <p style={{fontSize: '0.8rem', color: 'gray', textAlign: 'right', margin: '0'}}>Atualizado em: {new Date(updatedAt).toLocaleString('pt-BR')}</p>
+                        </div>
+                    )}
                 </Card.Body>
             </Card> 
         </Link>
