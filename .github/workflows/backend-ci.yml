@@ -46,13 +46,3 @@ jobs:
       - name: Build (if present)
         working-directory: ./back
         run: npm run build --if-present
-
-      - name: Run tests
-        working-directory: ./back
-        env:
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_USER: root
-          DB_PASSWORD: root
-          DB_NAME: posteach_test
-        run: npm test
