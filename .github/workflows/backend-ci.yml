@@ -1,6 +1,7 @@
 name: Backend CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main, develop ]
     paths:
@@ -37,6 +38,10 @@ jobs:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: back/package-lock.json
+
+      - name: Build backend image (Dockerfile validation)
+        working-directory: ./back
+        run: docker build -t posteach-backend-ci .
       
       - name: Install dependencies
         working-directory: ./back
