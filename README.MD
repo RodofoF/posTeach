@@ -3,6 +3,13 @@ Esse é um projeto do curso de FullStack da turma 6FSDT.
 
 O **Posteach** é um software inicialmente desenvolvido na plataforma **OutSystems**, que ao longo das fases esta evoluindo para um projeto fullstack totalmente em javascript.
 
+## Video
+Em anexo ao projeto anexei o vídeo do projeto, mas caso haja algum problema abaixo tem um link do video.
+
+```bash
+https://1drv.ms/v/c/9b83eac8540af75e/IQAxKtpe3C5YR7u25ytPo7t3AZOQgoq-mkbJxeCK6ltgRLE?e=3bO9bp
+```
+
 ## Sobre
 Voltado para conectar **professores e alunos** em um ambiente digital simples, rápido e visual.  
 A idéia do **PosTeach** é uma brincadeira com a palavra **post-it** que sonoramente similar a **Post Teach**, passando a ideia que o professor está entregando um post-it para o aluno de temas importantes.
@@ -82,3 +89,4 @@ http://localhost:5173/login
 * Dificuldade de design, não tenho muita experiência com design, deixando assim minha interface com somente um OK, e nada de especial que chame a atenção;
 * Typescript, eu realmente gostaria de ter utilizado Typescript no projeto, por ser muito enfatizado sobre como a tipagem é importante, mas isso adicionou complexidade ao projeto e ainda não cheguei em um passo que a tipagem fosse extremamente necessária. O javascript deixa mais simples por isso decidi permanecer nele;
 * Para me ajudar e dar mais agilidade utilizei o copilot no vscode, foi extremamente importante a ferramenta para agilizar o processo e aprendizado, tentei travar o máximo possivel o copilot para ele não escrever um código que saia do meu controle e entedimento. Minha sensação com IA é que eu conseguiria fazer o projeto sem a IA, mas não conseguiria fazer no tempo e não entregaria o projeto no ponto que esta agora
+
