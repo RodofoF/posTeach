@@ -1,0 +1,43 @@
+name: Frontend Build Verify
+
+on:
+	workflow_dispatch:
+	push:
+		branches: [ main, develop ]
+		paths:
+			- 'front/posteach-front/**'
+	pull_request:
+		branches: [ main ]
+		paths:
+			- 'front/posteach-front/**'
+
+jobs:
+	build-verify:
+		runs-on: ubuntu-latest
+
+		steps:
+			- uses: actions/checkout@v4
+
+			- name: Setup Node.js
+				uses: actions/setup-node@v4
+				with:
+					node-version: '18'
+					cache: 'npm'
+					cache-dependency-path: front/posteach-front/package-lock.json
+
+			- name: Install dependencies
+				working-directory: ./front/posteach-front
+				run: npm ci
+
+			- name: Build
+				working-directory: ./front/posteach-front
+				env:
+					VITE_API_URL: http://localhost:3000
+				run: npm run build
+
+			- name: Upload build artifact
+				if: success()
+				uses: actions/upload-artifact@v4
+				with:
+					name: frontend-dist
+					path: front/posteach-front/dist
