@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: posteach-frontend
+    ports:
+      - "8081:8081"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    networks:
+      - posteach-network
+
+networks:
+  posteach-network:
+    driver: bridge

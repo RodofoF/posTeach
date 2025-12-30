@@ -4,8 +4,7 @@ import { Container, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import PageTitle from '../../Components/PageTitle/PageTitle';
-
-import userDefaulftImage from '../../Assets/user_default.png';
+import userDefaulftImage from '../../assets/user_default.png';
 
 export default function AdministrationEdit() {
     const { id } = useParams();

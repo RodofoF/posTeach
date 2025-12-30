@@ -15,9 +15,9 @@ back/uploads_data/
 back/public/uploads_data/
 
 # Environment variables
-.env
-.env.local
-.env.production
+#.env
+#.env.development
+#.env.production
 
 # Node
 node_modules/

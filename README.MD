@@ -8,7 +8,7 @@ Voltado para conectar **professores e alunos** em um ambiente digital simples, r
 A idéia do **PosTeach** é uma brincadeira com a palavra **post-it** que sonoramente similar a **Post Teach**, passando a ideia que o professor está entregando um post-it para o aluno de temas importantes.
 
 ## Por trás do projeto
-Decidi deixar o projeto backend e frontend no mesmo repositório para facilitar o deploy e avaliação dos professores. Existe um script para facilitar a execução do projeto, abaixo mais informações.
+Decidi deixar o projeto backend e frontend no mesmo repositório para facilitar o deploy e avaliação dos professores. Existe um script para facilitar a execução do projeto, abaixo mais informações. Por mais que não seja recomendado as variáveis de ambiente foram deixadas no diretório para facilitar os testes.
 
 ### Backend
 Foi desenvolvido em NodeJs, Express e Mysql com Sequelize como ORM. Optei por utilizar essas tecnologias por ter mais familiariedade em projetos de estudos anteriores. O Backend segue uma estrutura MVC, documentação feita com swagger e testes feitos com JEST.
