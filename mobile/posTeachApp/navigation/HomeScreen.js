@@ -4,20 +4,14 @@ import { Appbar } from 'react-native-paper';
 // Colors
 import { colors } from '../src/theme';
 
-// Imagens
-import logo from '../assets/posteach_icon_side_bg.png';
-
 // Componentes
 import ContentCard from '../components/ContentCard';
+import HeaderScreens from '../components/HeaderScreens';
 
 export default function HomeScreen() {
   return (
     <View style={styles.screenContainer}>
-      <Appbar.Header style={styles.header}>
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <Image source={logo} style={{ height: 40, width: 120 }} resizeMode="contain" />
-        </View>
-      </Appbar.Header>
+      <HeaderScreens />
       <View style={styles.contentContainer}>
         <ContentCard title="Meu primeiro post" subtitle="Clique para ver mais" image="https://picsum.photos/700" info="Publicado em 20 de setembro de 2024"/>
       </View>
