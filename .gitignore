@@ -23,7 +23,7 @@ back/public/uploads_data/
 node_modules/
 npm-debug.log
 
-Mobile
+# Mobile
 
 mobile/posTeachApp/node_modules
 mobile/posTeachApp/.expo
