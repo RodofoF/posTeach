@@ -7,6 +7,9 @@ import { colors } from '../src/theme';
 // Imagens
 import logo from '../assets/posteach_icon_side_bg.png';
 
+// Componentes
+import ContentCard from '../components/ContentCard';
+
 export default function HomeScreen() {
   return (
     <View style={styles.screenContainer}>
@@ -16,7 +19,7 @@ export default function HomeScreen() {
         </View>
       </Appbar.Header>
       <View style={styles.contentContainer}>
-        <Text>Isso é minha tela inicial</Text>
+        <ContentCard title="Meu primeiro post" subtitle="Clique para ver mais" image="https://picsum.photos/700" info="Publicado em 20 de setembro de 2024"/>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    width: '100%',
   },
   loginCard: {
     width: '90%',

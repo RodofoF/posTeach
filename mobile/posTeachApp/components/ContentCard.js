@@ -1,21 +1,49 @@
 import * as React from 'react';
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
-const MyComponent = () => (
-  <Card>
-    <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
+
+const ContentCard = ({ title, subtitle, image, info }) => (
+  <Card style={styles.card}>
     <Card.Content>
-      <Text variant="titleLarge">Card title</Text>
-      <Text variant="bodyMedium">Card content</Text>
+      <Text style={styles.cardTitle}>{title}</Text>
+      <Text style={styles.cardSubtitle}>{subtitle}</Text>
     </Card.Content>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-    <Card.Actions>
-      <Button>Cancel</Button>
-      <Button>Ok</Button>
-    </Card.Actions>
+    <Card.Cover source={{ uri: image }} />
+    <Text style={styles.cardInfo}>{info}</Text>
   </Card>
 );
 
-export default MyComponent;
+const styles = StyleSheet.create({
+  card: {
+    width: '90%',
+    maxWidth: 400,
+    backgroundColor: '#fff',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 1,
+    paddingBottom: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    marginTop: -10,
+    textAlign: 'center',
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+  cardInfo: {
+    padding: 10,
+    color: '#888',
+    textAlign: 'right',
+  },
+});
+export default ContentCard;
