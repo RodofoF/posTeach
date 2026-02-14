@@ -54,7 +54,7 @@ http://localhost:8081/login
 A senha padrão para usuáiro admin:
 ```bash
 login: admin@admin.com
-senha: admin
+senha: 123456
 ```
 Assim a aplicação esta pronta para ser utilizada.
 

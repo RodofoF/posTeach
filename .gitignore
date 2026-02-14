@@ -22,3 +22,14 @@ back/public/uploads_data/
 # Node
 node_modules/
 npm-debug.log
+
+Mobile
+
+mobile/posTeachApp/node_modules
+mobile/posTeachApp/.expo
+mobile/posTeachApp/.expo-shared
+mobile/posTeachApp/.DS_Store
+mobile/posTeachApp/.vscode
+mobile/posTeachApp/.idea
+mobile/posTeachApp/.git
+mobile/posTeachApp/.gitignore
