@@ -3,12 +3,35 @@ import { StyleSheet, Text, View } from 'react-native';
 // Colors
 import { colors } from '../src/theme';
 import HeaderScreens from '../components/HeaderScreens';
+import { Divider, List } from 'react-native-paper';
+import FilterComponent from '../components/FilterComponent';
 
 export default function PostsScreen() {
   return (
     <View style={styles.screenContainer}>
-      <HeaderScreens />
-      <Text>Isso é minha tela de posts</Text>
+      <HeaderScreens isLogoVisible={true} isTextVisible={false} HeaderText="Meus Posts" isBackButtonVisible={false} />
+      <View style={styles.filterContainer}>
+        <FilterComponent
+          placeholder="Filtrar por título"
+          onChangeText={() => {}}
+          value={''}
+        />
+        <Divider style={styles.filterDivider} />
+      </View>
+      <List.Section>
+        <List.Item
+          title="First Item"
+          description="Item description"
+        />
+        <List.Item
+          title="Second Item"
+          description="Item description"
+        />
+        <List.Item
+          title="Third Item"
+          description="Item description"
+        />
+      </List.Section>
       <StatusBar style="auto" />
     </View>
   );
@@ -19,31 +42,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  loginCard: {
-    width: '90%',
-    maxWidth: 400,
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    alignItems: 'center',
+  filterContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
   },
-  logo: {
-    width: '60%',
-    height: 100,
-    marginBottom: 10,
-  },
-  textInput: {
-    marginBottom: 20,
-    borderBlockColor: 'black',
-    borderWidth: 1,
-    backgroundColor: '#fff',
-  },
-  textInputView: {
-    width: '100%',
-    marginBottom: 20,
-    backgroundColor: '#fff',
+  filterDivider: {
+    marginVertical: 16,
   },
 });
 

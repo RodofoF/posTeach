@@ -14,7 +14,7 @@ import userDefault from '../assets/user_default.png';
 export default function SettingsScreen() {
   return (
     <>
-    <HeaderScreens isLogoVisible={false} isTextVisible={true} HeaderText="Configurações" isBackButtonVisible={false} />
+    <HeaderScreens isLogoVisible={true} isTextVisible={false} HeaderText="Configurações" isBackButtonVisible={false} />
     <SafeAreaView style={styles.screenContainer}>
       <View style={styles.userInfoContainer}>
         <View>

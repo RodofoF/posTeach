@@ -13,7 +13,7 @@ const MyComponent = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home-outline' },
-        { key: 'posts', title: 'Posts', focusedIcon: 'post', unfocusedIcon: 'post-outline' },
+        { key: 'posts', title: 'Meus Posts', focusedIcon: 'post', unfocusedIcon: 'post-outline' },
         { key: 'settings', title: 'Settings', focusedIcon: 'cog', unfocusedIcon: 'cog-outline' },
     ]);
 
