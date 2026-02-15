@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Divider, List } from 'react-native-paper';
 
@@ -30,22 +30,27 @@ export default function SettingsScreen() {
         <List.Item
           title="Gerencie usuários"
           left={() => <List.Icon icon="account-group" />}
+          onPress={() => Alert.alert('Gerenciar usuários', 'Funcionalidade em desenvolvimento')}
         />
         <List.Item
           title="Fale com a escola"
           left={() => <List.Icon icon="school" />}
+          onPress={() => Alert.alert('Fale com a escola', 'Funcionalidade em desenvolvimento')}
         />
         <List.Item
           title="Reporte uma falha ao desenvolvedor"
           left={() => <List.Icon icon="alert-circle" />}
+          onPress={() => Alert.alert('Reporte uma falha ao desenvolvedor', 'Funcionalidade em desenvolvimento')}
         />
         <List.Item
           title="Em breve"
           left={() => <List.Icon icon="clock-outline" />}
+          onPress={() => Alert.alert('Em breve', 'Funcionalidade em desenvolvimento')}
         />
         <List.Item
           title="Sair"
           left={() => <List.Icon icon="logout" />}
+          onPress={() => Alert.alert('Sair', 'Funcionalidade em desenvolvimento')}
         />
       </List.Section>
       <StatusBar style="auto" />

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { colors } from '../src/theme';
@@ -10,7 +9,6 @@ export default function FilterComponent({placeholder, onChangeText, value}) {
       onChangeText={onChangeText}
       value={value}
       style={[styles.searchbar]}
-
     />
   );
 };

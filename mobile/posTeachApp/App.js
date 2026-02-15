@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './navigation/LoginScreen';
 import HomeScreen from './navigation/HomeScreen';
 import MainAppNavigator from './navigation/MainAppNavigator';
+import PostsReadScreen from './navigation/PostsReadScreen';
 
 // Image
 
@@ -17,6 +18,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
         <Stack.Screen name="MainApp" component={MainAppNavigator} options={{headerShown: false}}/>
+        <Stack.Screen name="PostsReadScreen" component={PostsReadScreen} options={{ title: 'Post' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

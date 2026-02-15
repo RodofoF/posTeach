@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 // Colors
 import { colors } from '../src/theme';
 
@@ -9,11 +9,19 @@ import ContentCard from '../components/ContentCard';
 import HeaderScreens from '../components/HeaderScreens';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.screenContainer}>
       <HeaderScreens />
       <View style={styles.contentContainer}>
-        <ContentCard title="Meu primeiro post" subtitle="Clique para ver mais" image="https://picsum.photos/700" info="Publicado em 20 de setembro de 2024"/>
+        <ContentCard 
+          title="Meu primeiro post" 
+          subtitle="Clique para ver mais" 
+          image="https://picsum.photos/700" 
+          info="Publicado em 20 de setembro de 2024"
+          onPress={() => navigation.navigate('PostsReadScreen', { postId: 1 })}
+        />
       </View>
       <StatusBar style="auto" />
     </View>

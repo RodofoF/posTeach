@@ -4,8 +4,8 @@ import { StyleSheet } from 'react-native';
 
 
 
-const ContentCard = ({ title, subtitle, image, info }) => (
-  <Card style={styles.card}>
+const ContentCard = ({ title, subtitle, image, info, onPress }) => (
+  <Card style={styles.card} onPress={onPress}>
     <Card.Content>
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.cardSubtitle}>{subtitle}</Text>
