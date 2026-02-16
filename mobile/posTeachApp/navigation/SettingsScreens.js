@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Divider, List } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { saveLoginData,loadLoginData } from '../helpers/storage';
+import { useState, useEffect } from 'react';
 
 // Colors
 import { colors } from '../src/theme';
@@ -14,6 +16,22 @@ import HeaderScreens from '../components/HeaderScreens';
 import userDefault from '../assets/user_default.png';
 export default function SettingsScreen({ navigation }) {
   const nav = navigation ?? useNavigation();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const loginData = await loadLoginData();
+      setUser(loginData.user);
+    };
+    fetchUserData();
+  }, []);
+
+  const handleLogout = async () => {
+    nav.replace('Login');
+    await saveLoginData({ token: null, user: null, message: null });
+  };
+
+
   return (
     <>
     <HeaderScreens isLogoVisible={true} isTextVisible={false} HeaderText="Configurações" isBackButtonVisible={false} />
@@ -23,8 +41,8 @@ export default function SettingsScreen({ navigation }) {
           <Image source={userDefault} style={styles.userImage} />
         </View>
         <View style={styles.userInfoTextContainer}>
-          <Text style={styles.userName}>Fulano de tal</Text>
-          <Text style={styles.userEmail}>fulano@email.com</Text>
+          <Text style={styles.userName}>{user?.username || 'Fulano de tal'}</Text>
+          <Text style={styles.userEmail}>{user?.email || 'fulano@email.com'}</Text>
         </View>
       </View>
       <Divider style={{ marginVertical: 20 }} />
@@ -52,10 +70,7 @@ export default function SettingsScreen({ navigation }) {
         <List.Item
           title="Sair"
           left={() => <List.Icon icon="logout" />}
-          onPress={() => {
-            Alert.alert('Sair', 'Funcionalidade em desenvolvimento');
-            nav.replace('Login');
-          }}
+          onPress={handleLogout}
         />
       </List.Section>
       <StatusBar style="auto" />

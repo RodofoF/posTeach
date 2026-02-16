@@ -44,7 +44,7 @@ export default function LoginScreen({ navigation }) {
       const data = await response.json();
       if (response.ok) {
         await saveLoginData(data);
-        alert(`${data.message || 'Login bem-sucedido'}`);
+        alert(`${`Bem vindo ${data.user.username}, esse app está em desenvolvimento, então algumas funcionalidades podem não estar disponíveis ou apresentarem erros. `}`);
         nav.replace('MainApp');
       } else {
         alert(data.message || 'Erro ao fazer login');
