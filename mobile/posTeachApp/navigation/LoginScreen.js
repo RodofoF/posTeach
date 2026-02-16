@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { ScrollView, KeyboardAvoidingView } from 'react-native';
+import { saveLoginData, loadLoginData } from '../helpers/storage';
+import { useNavigation } from '@react-navigation/native';
 
 
 // Components
@@ -11,18 +13,45 @@ import ButtonConfirm from '../components/ButtonConfirm';
 // Images
 import logo from '../assets/posteach_icon_side_bg.png';
 
-// Colors
+// Outros
 import { colors } from '../src/theme';
 
+
 export default function LoginScreen({ navigation }) {
+
+  const nav = navigation ?? useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Lógica de login aqui
-    alert('Entrar' + email + ' - ' + password);
-    navigation.replace('MainApp');
+  const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
+
+
+  const handleLogin = async () => {
+    console.log('Tentando logar com:', { url, email, password });
+    if (!email || !password) {
+      alert('Por favor, preencha todos os campos');
+      return;
+    }
+    try {
+      const response = await fetch(`${url}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        await saveLoginData(data);
+        alert(`${data.message || 'Login bem-sucedido'}`);
+        nav.replace('MainApp');
+      } else {
+        alert(data.message || 'Erro ao fazer login');
+      }
+    } catch (error) {
+      alert('Erro ao conectar ao servidor');
+    }
   };
 
   return (

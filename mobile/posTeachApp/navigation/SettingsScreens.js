@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Divider, List } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 // Colors
 import { colors } from '../src/theme';
@@ -11,7 +12,8 @@ import HeaderScreens from '../components/HeaderScreens';
 
 // Imagens
 import userDefault from '../assets/user_default.png';
-export default function SettingsScreen() {
+export default function SettingsScreen({ navigation }) {
+  const nav = navigation ?? useNavigation();
   return (
     <>
     <HeaderScreens isLogoVisible={true} isTextVisible={false} HeaderText="Configurações" isBackButtonVisible={false} />
@@ -50,7 +52,10 @@ export default function SettingsScreen() {
         <List.Item
           title="Sair"
           left={() => <List.Icon icon="logout" />}
-          onPress={() => Alert.alert('Sair', 'Funcionalidade em desenvolvimento')}
+          onPress={() => {
+            Alert.alert('Sair', 'Funcionalidade em desenvolvimento');
+            nav.replace('Login');
+          }}
         />
       </List.Section>
       <StatusBar style="auto" />
