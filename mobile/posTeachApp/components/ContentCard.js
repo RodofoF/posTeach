@@ -17,8 +17,8 @@ const ContentCard = ({ title, subtitle, image, info, onPress }) => (
 
 const styles = StyleSheet.create({
   card: {
-    width: '90%',
-    maxWidth: 400,
+    width: '100%',
+    minWidth: '100%',
     backgroundColor: '#fff',
     paddingLeft: 10,
     paddingRight: 10,

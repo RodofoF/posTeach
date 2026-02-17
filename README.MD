@@ -90,3 +90,9 @@ http://localhost:5173/login
 * Typescript, eu realmente gostaria de ter utilizado Typescript no projeto, por ser muito enfatizado sobre como a tipagem é importante, mas isso adicionou complexidade ao projeto e ainda não cheguei em um passo que a tipagem fosse extremamente necessária. O javascript deixa mais simples por isso decidi permanecer nele;
 * Para me ajudar e dar mais agilidade utilizei o copilot no vscode, foi extremamente importante a ferramenta para agilizar o processo e aprendizado, tentei travar o máximo possivel o copilot para ele não escrever um código que saia do meu controle e entedimento. Minha sensação com IA é que eu conseguiria fazer o projeto sem a IA, mas não conseguiria fazer no tempo e não entregaria o projeto no ponto que esta agora
 
+# Aprendizados no react-native
+* Maior facilidade para criar um layout, já que hoje em dia utilizamoms mais aplicativos e eles são pensados para ser mais simples.
+* Tentei implantar um FlatList com limite de carregamento, mas  o backend não esta preparado para receber requisiçoes com limit,então foi implementado um flatlist simples
+* Como o projeto é pequeno e não é visado para produção ou crescimento, optei por deixar da forma mais simples os arquivos de screen;
+* Novamente optei pelo JavaScript, não vi necessida de utilizar o TypeScript, talvez na resolução de erros seria melhor identificado qual seria o erro, mas até o momento não tive essa experiência
+* Utilizei de components para facilitar a criação das páginas, tornando menos verboso o projeto e ajudando na lógica e manutenção
