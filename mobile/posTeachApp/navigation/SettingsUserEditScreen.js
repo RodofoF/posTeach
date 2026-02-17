@@ -18,7 +18,6 @@ export default function SettingsUserEditScreen() {
     const [profileId, setProfileId] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [errors, setErrors] = useState({ username: '', email: '', password: '', profileId: '', userDescription: '' });
-    const [isLoading, setIsLoading] = useState(true);
 
     const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
 
@@ -41,8 +40,8 @@ export default function SettingsUserEditScreen() {
                     if (response.ok) {
                         setUsername(data.username);
                         setEmail(data.email);
-                        setProfileId(data.profileId);
-                        setUserDescription(data.userDescription);
+                        setProfileId(String(data.profile_id || ''));
+                        setUserDescription(data.userdescription || '');
                     } else {
                         alert(data.message || 'Erro ao carregar dados do usuário');
                     }
@@ -67,10 +66,10 @@ export default function SettingsUserEditScreen() {
             setErrors(prevErrors => ({ ...prevErrors, profileId: 'Por favor, preencha o ID do perfil' }));
             return;
         }
-        if (!userDescription) {
-            setErrors(prevErrors => ({ ...prevErrors, userDescription: 'Por favor, preencha a descrição do usuário' }));
-            return;
-        }
+        // if (!userDescription) {
+        //     setErrors(prevErrors => ({ ...prevErrors, userDescription: 'Por favor, preencha a descrição do usuário' }));
+        //     return;
+        // }
         try {
             const response = await fetch(`${url}/users/${userId}`, {
                 method: 'PUT',
@@ -82,19 +81,17 @@ export default function SettingsUserEditScreen() {
                     {
                         username,
                         email,
-                        password,
-                        profileId,
-                        userDescription,
-                        profile_id: profileId,
+                        password: password || undefined,
+                        profile_id: parseInt(profileId),
+                        userdescription: userDescription,
                     }),
             });
-            console.log({ username, email, password, profileId, userDescription })
             const data = await response.json();
             if (response.ok) {
                 alert('Usuário atualizado com sucesso!');
                 navigation.goBack({ refresh: true });
             } else {
-                alert(data.message + response.status || 'Erro ao atualizar usuário');
+                alert(data.message || `Erro ao atualizar usuário (${response.status})`);
             }
         } catch (error) {
             alert('Erro ao conectar ao servidor');

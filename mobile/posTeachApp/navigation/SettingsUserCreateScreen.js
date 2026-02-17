@@ -58,11 +58,11 @@ export default function SettingsUserCreateScreen() {
                         email,
                         password,
                         profileId,
-                        userDescription,
+                        userdescription: userDescription,
                         profile_id: profileId,
                     }),
             });
-            console.log({ username, email, password, profileId, userDescription })
+            console.log({ username, email, password, profileId, userdescription: userDescription })
             const data = await response.json();
             if (response.ok) {
                 alert('Usuário criado com sucesso!');
@@ -134,7 +134,14 @@ export default function SettingsUserCreateScreen() {
                 activeOutlineColor={colors.primary}
             />
             {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
-            <Text style={{ color: colors.darkLetter, fontSize: 14, marginTop: 4 }}>
+            <Text style={{ 
+                color: colors.darkLetter, 
+                fontSize: 14, 
+                marginTop: 4,
+                width: '100%',
+                minHeight: 40,
+                flexWrap: 'wrap'
+            }}>
                 A feature de imagem será adicionada nas próximas atualizações, permitindo que você customize sua imagem de perfil.
             </Text>
 
@@ -192,6 +199,10 @@ const styles = StyleSheet.create({
         color: 'red',
         fontSize: 12,
         marginTop: 4,
+        marginBottom: 8,
+        width: '100%',
+        minHeight: 16,
+        flexWrap: 'wrap',
     },
     pickerWrapper: {
         width: '100%',
@@ -200,5 +211,7 @@ const styles = StyleSheet.create({
         borderColor: colors.darkLetter,
         borderRadius: 4,
         backgroundColor: colors.lightLetter,
+        minHeight: 48,
+        justifyContent: 'center',
     }
 });
