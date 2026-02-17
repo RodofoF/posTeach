@@ -90,7 +90,7 @@ export default function PostsScreen({ navigation }) {
             ItemSeparatorComponent={() => <Divider />}
             renderItem={({ item }) => (
               <List.Item style={styles.listItem}
-                onPress={() => nav.navigate('PostsReadScreen', { postId: item.id })}
+                onPress={() => nav.navigate('PostsEditScreen', { postId: item.id })}
                 title={item.title}
                 titleNumberOfLines={1}
                 titleStyle={styles.listItemTitle}
