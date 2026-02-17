@@ -1,24 +1,68 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-// Colors
 import { colors } from '../src/theme';
-//images
 import userDefault from '../assets/user_default.png';
+import { useState, useEffect } from 'react';
+import { loadLoginData } from '../helpers/storage';
+import { useRoute } from '@react-navigation/native';
+
 
 
 export default function PostsReadScreen() {
+    const route = useRoute();
+    const postId = route.params?.postId;
+    const [postData, setPostData] = useState(null);
+    const [user, setUser] = useState(null);
+    
+    const id = 1;
+    const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
+
+    useEffect(() => {
+        const loadUserData = async () => {
+            const userData = await loadLoginData();
+            setUser(userData);
+        };
+        loadUserData();
+    }, []);
+
+
+    const fetchPostData = async (postId) => {
+        try {
+            const response = await fetch(`${url}/posts/${postId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user?.token || ''}`,
+                },
+            });
+            const data = await response.json();
+            console.log(data);
+            if (response.ok) {
+                setPostData(data);
+            } else {
+                alert(data.message || 'Erro ao carregar post');
+            }
+        } catch (error) {
+            alert('Erro ao conectar ao servidor');
+        }
+    }
+    useEffect(() => {
+        if (user) {
+            fetchPostData(postId);
+        }
+    }, [user, postId]);
+
+    if (!postData) {
+        return <Text>Carregando...</Text>;
+    }
     return (
         <View style={styles.screenContainer}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>Meu primeiro post</Text>
-                <Text style={styles.subtitle}>Esse Post fala sobre o latim</Text>
+                <Text style={styles.title}>{postData.title}</Text>
+                <Text style={styles.subtitle}>{postData.subtitle}</Text>
             </View>
             <View style={styles.contentContainer}>
                 <Text style={styles.postContent}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sapien eget nunc efficitur commodo.
-                    Curabitur ac ligula a metus efficitur tincidunt. Sed at felis nec nisl convallis fermentum.
-                    Proin in odio a enim efficitur bibendum. Nulla facilisi.
-                    Donec ut velit id justo efficitur varius.
-                    Suspendisse potenti.
+                    {postData.content}
                 </Text>
             </View>
             <View style={styles.creatorContainer}>
@@ -26,8 +70,8 @@ export default function PostsReadScreen() {
                     <Image source={userDefault} style={styles.userImage} />
                 </View>
                 <View>
-                    <Text style={styles.creatorName}>Rodolfo Ferreira</Text>
-                    <Text style={styles.postDate}>Publicado em 20 de setembro de 2024</Text>
+                    <Text style={styles.creatorName}>{postData.user.username}</Text>
+                    <Text style={styles.postDate}>Publicado em {new Date(postData.createdAt).toLocaleDateString()}</Text>
                 </View>
             </View>
         </View>
