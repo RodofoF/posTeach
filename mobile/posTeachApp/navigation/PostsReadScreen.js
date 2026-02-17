@@ -4,15 +4,18 @@ import userDefault from '../assets/user_default.png';
 import { useState, useEffect } from 'react';
 import { loadLoginData } from '../helpers/storage';
 import { useRoute } from '@react-navigation/native';
+import { FAB } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-export default function PostsReadScreen() {
+export default function PostsReadScreen({ navigation }) {
+    const nav = navigation ?? useNavigation();
     const route = useRoute();
     const postId = route.params?.postId;
     const [postData, setPostData] = useState(null);
     const [user, setUser] = useState(null);
-    
+
     const id = 1;
     const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
 
@@ -74,6 +77,10 @@ export default function PostsReadScreen() {
                     <Text style={styles.postDate}>Publicado em {new Date(postData.createdAt).toLocaleDateString()}</Text>
                 </View>
             </View>
+            {postData.user_id === user?.user?.id && (
+            <FAB style={styles.fab} icon="pencil"
+                onPress={() => nav.navigate('PostsEditScreen', { postId })} />
+            )}
         </View>
     );
 }
@@ -127,4 +134,13 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: colors.darkLetter,
     },
+    fab: {
+    position: 'absolute',
+    margin: 16,
+    marginBottom: 80,
+    right: 0,
+    bottom: 0,
+    color: colors.lightLetter,
+    backgroundColor: colors.success,
+  },
 });
