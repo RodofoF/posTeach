@@ -103,7 +103,7 @@ export default function PostsScreen({ navigation }) {
               />
             )}
             ListEmptyComponent={() => (
-              <Text>Nenhum post encontrado</Text>
+              <Text style={styles.loadingText}>Nenhum post encontrado</Text>
             )}
           />
         )}
@@ -163,6 +163,11 @@ const styles = StyleSheet.create({
     color: colors.darkLetter,
     textAlign: 'center',
     paddingHorizontal: 20,
+  },
+    loadingText: {
+    textAlign: 'center',
+    color: colors.darkLetter,
+    marginTop: 20,
   },
     loadingText: {
     textAlign: 'center',

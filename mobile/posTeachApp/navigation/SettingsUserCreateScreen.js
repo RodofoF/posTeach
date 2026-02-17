@@ -124,7 +124,7 @@ export default function SettingsUserCreateScreen() {
                 multiline
             />
             {errors.userDescription && <Text style={styles.errorText}>{errors.userDescription}</Text>}
-            <View style={{ position: 'relative', width: '100%' }}>
+            <View style={styles.passwordContainer}>
                 <TextInput
                     label="Senha"
                     mode="outlined"
@@ -221,5 +221,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightLetter,
         minHeight: 48,
         justifyContent: 'center',
+    },
+    passwordContainer: {
+        width: '100%',
+        position: 'relative',
+        marginBottom: 16,
     }
 });
