@@ -6,6 +6,7 @@ import LoginScreen from './navigation/LoginScreen';
 import HomeScreen from './navigation/HomeScreen';
 import MainAppNavigator from './navigation/MainAppNavigator';
 import PostsReadScreen from './navigation/PostsReadScreen';
+import PostsCreateScreen from './navigation/PostsCreateScreen'; 
 
 // Image
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
         <Stack.Screen name="MainApp" component={MainAppNavigator} options={{headerShown: false}}/>
         <Stack.Screen name="PostsReadScreen" component={PostsReadScreen} options={{ title: 'Post' }}/>
+        <Stack.Screen name="PostsCreateScreen" component={PostsCreateScreen} options={{ title: 'Criar Post' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

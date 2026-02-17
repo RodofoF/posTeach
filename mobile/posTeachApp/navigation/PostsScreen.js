@@ -7,8 +7,10 @@ import { Divider, List, FAB } from 'react-native-paper';
 import FilterComponent from '../components/FilterComponent';
 import { useState, useEffect } from 'react';
 import { loadLoginData } from '../helpers/storage';
+import { useNavigation } from '@react-navigation/native';
 
 export default function PostsScreen() {
+  const navigation = useNavigation();
   const [filterText, setFilterText] = useState('');
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,6 +25,7 @@ export default function PostsScreen() {
     };
     loadUserData();
   }, []);
+  
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -74,7 +77,7 @@ export default function PostsScreen() {
             ItemSeparatorComponent={() => <Divider />}
             renderItem={({ item }) => (
               <List.Item style={styles.listItem}
-              onPress={() => alert(`Post selecionado: ${item.title}`)}
+              onPress={() => navigation.navigate('PostsReadScreen', { postId: item.id })}
               title={item.title}
               titleStyle={styles.listItemTitle}
               description={item.description}
@@ -89,7 +92,7 @@ export default function PostsScreen() {
           <Divider />
       </List.Section>
       <FAB style={styles.fab} icon="plus" 
-      onPress={() => alert('Adicionar novo post')} />
+      onPress={() => navigation.navigate('PostsCreateScreen')} />
       <StatusBar style="auto" />
     </View>
   );
