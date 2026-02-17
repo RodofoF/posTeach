@@ -83,7 +83,7 @@ export default function HomeScreen() {
         <Divider style={{ marginVertical: 20 }} />
 
         {loading ? (
-          <Text>Carregando...</Text>
+          <Text style={styles.loadingText}>Carregando...</Text>
         ) : (
           <FlatList
             data={posts.filter(post => post.title.toLowerCase().includes(filterText.toLowerCase()))}
@@ -188,5 +188,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 12,
   },
+  loadingText: {
+    textAlign: 'center',
+    color: colors.darkLetter,
+    marginTop: 20,
+  }
 })
 

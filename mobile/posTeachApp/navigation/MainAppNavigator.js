@@ -8,6 +8,7 @@ import SettingsScreen from './SettingsScreens';
 
 // Colors
 import { colors } from '../src/theme';
+import IfProfComponent from '../components/IfProfComponent';
 
 const MyComponent = () => {
     const [index, setIndex] = React.useState(0);

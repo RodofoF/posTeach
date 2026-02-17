@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-// Colors
 import { colors } from '../src/theme';
 import HeaderScreens from '../components/HeaderScreens';
 import { Divider, List, FAB } from 'react-native-paper';
@@ -8,6 +7,7 @@ import FilterComponent from '../components/FilterComponent';
 import { useState, useEffect } from 'react';
 import { loadLoginData } from '../helpers/storage';
 import { useNavigation } from '@react-navigation/native';
+import IfProfComponent from '../components/IfProfComponent';
 
 export default function PostsScreen({ navigation }) {
   const nav = navigation ?? useNavigation();
@@ -72,9 +72,10 @@ export default function PostsScreen({ navigation }) {
         />
         <Divider style={styles.filterDivider} />
       </View>
+      <IfProfComponent profileId={user?.user?.profileId}>
       <View style={{ flex: 1 }}>
         {loading ? (
-          <Text>Carregando...</Text>
+          <Text style={styles.loadingText}>Carregando...</Text>
         ) : (
           <FlatList
             data={posts.filter(post => post.title.toLowerCase().includes(filterText.toLowerCase()))}
@@ -110,6 +111,12 @@ export default function PostsScreen({ navigation }) {
       </View>
       <FAB style={styles.fab} icon="plus"
         onPress={() => nav.navigate('PostsCreateScreen')} />
+        </IfProfComponent>
+        {(!user || user.user.profileId !== '1') && (
+          <View style={styles.IfProfStyle}>
+            <Text style={styles.IfProfStyleText}>Apenas professores podem criar e gerenciar posts.</Text>
+          </View>
+        )}
       <StatusBar style="auto" />
     </View>
   );
@@ -145,5 +152,22 @@ const styles = StyleSheet.create({
     color: colors.lightLetter,
     backgroundColor: colors.success,
   },
+  IfProfStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  IfProfStyleText: {
+    fontSize: 16,
+    color: colors.darkLetter,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+  },
+    loadingText: {
+    textAlign: 'center',
+    color: colors.darkLetter,
+    marginTop: 20,
+  }
 });
 
