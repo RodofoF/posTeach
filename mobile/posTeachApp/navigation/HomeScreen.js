@@ -20,6 +20,7 @@ export default function HomeScreen() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [filterText, setFilterText] = useState('');
 
 
   const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
@@ -33,75 +34,80 @@ export default function HomeScreen() {
   }, []);
 
 
-useEffect(() => {
-  const fetchPosts = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${url}/posts`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user?.token || ''}`,
-        },
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${url}/posts`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user?.token || ''}`,
+          },
 
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setPosts(data)
-        setLoading(false);
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setPosts(data)
+          setLoading(false);
 
-      } else {
-        alert(data.message || 'Erro ao carregar posts');
+        } else {
+          alert(data.message || 'Erro ao carregar posts');
+          setLoading(false);
+        }
+      } catch (error) {
+        alert('Erro ao conectar ao servidor');
         setLoading(false);
       }
-    } catch (error) {
-      alert('Erro ao conectar ao servidor');
-      setLoading(false);
-    }
-  };
-  if (!user) return;
-  fetchPosts();
-}, [user]);
+    };
+    if (!user) return;
+    fetchPosts();
+  }, [user]);
 
 
-return (
-  <View style={styles.screenContainer}>
-    <HeaderScreens />
-    <View style={styles.contentContainer}>
-      <View style={styles.filterContainer}>
-        <FilterComponent
-          placeholder="Filtrar por título"
-          onChangeText={() => { }}
-          value={''}
-        />
-      </View>
-      <Divider style={{ marginVertical: 20 }} />
-      <FlatList
-        data={posts}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
-        style={styles.list}
-        keyExtractor={(post) => post.id.toString()}
-        ItemSeparatorComponent={() => <Divider style={{ marginVertical: 8 }} />}
-        renderItem={({ item: post }) => (
-          <ContentCard
-            style={styles.contentCard}
-            title={post.title}
-            subtitle={`Publicado em ${new Date(post.createdAt).toLocaleDateString()}`}
-            image={post.imageUrl || 'https://picsum.photos/700'}
-            info={post.updatedAt ? `Atualizado em ${new Date(post.updatedAt).toLocaleDateString()}` : 'Sem atualizações'}
-            onPress={() => navigation.navigate('PostsReadScreen', { postId: post.id })}
+  return (
+    <View style={styles.screenContainer}>
+      <HeaderScreens />
+      <View style={styles.contentContainer}>
+        <View style={styles.filterContainer}>
+          <FilterComponent
+            placeholder="Filtrar por título"
+            onChangeText={setFilterText}
+            value={filterText}
+          />
+        </View>
+        <Divider style={{ marginVertical: 20 }} />
+
+        {loading ? (
+          <Text>Carregando...</Text>
+        ) : (
+          <FlatList
+            data={posts.filter(post => post.title.toLowerCase().includes(filterText.toLowerCase()))}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.listContent}
+            style={styles.list}
+            keyExtractor={(post) => post.id.toString()}
+            ItemSeparatorComponent={() => <Divider style={{ marginVertical: 8 }} />}
+            renderItem={({ item: post }) => (
+              <ContentCard
+                style={styles.contentCard}
+                title={post.title}
+                subtitle={`Publicado em ${new Date(post.createdAt).toLocaleDateString()}`}
+                image={post.imageUrl || 'https://picsum.photos/700'}
+                info={post.updatedAt ? `Atualizado em ${new Date(post.updatedAt).toLocaleDateString()}` : 'Sem atualizações'}
+                onPress={() => navigation.navigate('PostsReadScreen', { postId: post.id })}
+              />
+            )}
+            ListEmptyComponent={() => (
+              <Text style={styles.emptyText}>Nenhum post encontrado</Text>
+            )}
           />
         )}
-        ListEmptyComponent={() => (
-          <Text style={styles.emptyText}>Nenhum post encontrado</Text>
-        )}
-      />
+      </View>
+      <StatusBar style="auto" />
     </View>
-    <StatusBar style="auto" />
-  </View>
-);
+  );
 }
 
 const styles = StyleSheet.create({
