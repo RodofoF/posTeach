@@ -102,13 +102,14 @@ export default function PostsEditScreen({ route }) {
                     'Authorization': `Bearer ${user?.token || ''}`,
                 },
             });
-            const responseText = await response.text();
-            const data = responseText ? JSON.parse(responseText) : null;
+            
             if (response.ok) {
-                navigation.goBack({refresh: true});
                 alert('Post deletado com sucesso!');
+                navigation.replace('MainApp', {refresh: true});
             } else {
-                alert((data?.message || '') + response.status || 'Erro ao deletar post');
+                // Apenas tenta fazer parse do JSON se houver conteúdo na resposta
+                const data = await response.json();
+                alert(data.message || 'Erro ao deletar post');
             }
         } catch (error) {
             alert('Erro ao conectar ao servidor');

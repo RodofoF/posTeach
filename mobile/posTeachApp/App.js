@@ -8,6 +8,9 @@ import MainAppNavigator from './navigation/MainAppNavigator';
 import PostsReadScreen from './navigation/PostsReadScreen';
 import PostsCreateScreen from './navigation/PostsCreateScreen'; 
 import PostsEditScreen from './navigation/PostsEditScreen';
+import SettingsUserScreen from './navigation/SettingsUserScreen';
+import SettingsUserCreateScreen from './navigation/SettingsUserCreateScreen';
+import SettingsUserEditScreen from './navigation/SettingsUserEditScreen';
 
 
 
@@ -22,6 +25,9 @@ export default function App() {
         <Stack.Screen name="PostsReadScreen" component={PostsReadScreen} options={{ title: 'Post' }}/>
         <Stack.Screen name="PostsCreateScreen" component={PostsCreateScreen} options={{ title: 'Criar Post' }}/>
         <Stack.Screen name="PostsEditScreen" component={PostsEditScreen} options={{ title: 'Editar Post' }}/>
+        <Stack.Screen name="SettingsUserScreen" component={SettingsUserScreen} options={{ title: 'Gerenciar Usuários' }}/>
+        <Stack.Screen name="SettingsUserCreateScreen" component={SettingsUserCreateScreen} options={{ title: 'Criar Usuário' }}/> 
+        <Stack.Screen name="SettingsUserEditScreen" component={SettingsUserEditScreen} options={{ title: 'Editar Usuário' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

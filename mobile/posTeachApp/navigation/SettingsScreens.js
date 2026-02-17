@@ -50,7 +50,7 @@ export default function SettingsScreen({ navigation }) {
         <List.Item
           title="Gerencie usuários"
           left={() => <List.Icon icon="account-group" />}
-          onPress={() => Alert.alert('Gerenciar usuários', 'Funcionalidade em desenvolvimento')}
+          onPress={() => nav.navigate('SettingsUserScreen')}
         />
         <List.Item
           title="Fale com a escola"
