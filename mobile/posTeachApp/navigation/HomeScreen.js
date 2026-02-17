@@ -105,8 +105,8 @@ export default function HomeScreen() {
               <ContentCard
                 style={styles.contentCard}
                 title={post.title}
-                subtitle={`Publicado em ${new Date(post.createdAt).toLocaleDateString()}`}
-                image={post.imageUrl || 'https://picsum.photos/700'}
+                subtitle={`${post.subtitle}`}
+                image={post.imageUrl || 'https://avatars.githubusercontent.com/u/89172848?v=4'}
                 info={post.updatedAt ? `Atualizado em ${new Date(post.updatedAt).toLocaleDateString()}` : 'Sem atualizações'}
                 onPress={() => navigation.navigate('PostsReadScreen', { postId: post.id })}
               />
