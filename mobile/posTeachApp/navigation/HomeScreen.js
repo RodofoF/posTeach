@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import { Divider } from 'react-native-paper';
 
@@ -34,32 +34,36 @@ export default function HomeScreen() {
   }, []);
 
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${url}/posts`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user?.token || ''}`,
-          },
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}/posts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user?.token || ''}`,
+        },
 
-        });
-        const data = await response.json();
-        if (response.ok) {
-          setPosts(data)
-          setLoading(false);
 
-        } else {
-          alert(data.message || 'Erro ao carregar posts');
-          setLoading(false);
-        }
-      } catch (error) {
-        alert('Erro ao conectar ao servidor');
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const sortedData = data.sort((a, b) =>
+          new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+        setPosts(sortedData);
+        setLoading(false);
+
+      } else {
+        alert(data.message || 'Erro ao carregar posts');
         setLoading(false);
       }
-    };
+    } catch (error) {
+      alert('Erro ao conectar ao servidor');
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     if (!user) return;
     fetchPosts();
   }, [user]);
@@ -83,6 +87,14 @@ export default function HomeScreen() {
         ) : (
           <FlatList
             data={posts.filter(post => post.title.toLowerCase().includes(filterText.toLowerCase()))}
+            onRefresh={() => {
+              if (!user) return;
+              else {
+                fetchPosts()
+                console.log('Posts atualizados');
+              }
+            }}
+            refreshing={loading}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.listContent}

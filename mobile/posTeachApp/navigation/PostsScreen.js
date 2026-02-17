@@ -9,8 +9,8 @@ import { useState, useEffect } from 'react';
 import { loadLoginData } from '../helpers/storage';
 import { useNavigation } from '@react-navigation/native';
 
-export default function PostsScreen() {
-  const navigation = useNavigation();
+export default function PostsScreen({ navigation }) {
+  const nav = navigation ?? useNavigation();
   const [filterText, setFilterText] = useState('');
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,37 +25,40 @@ export default function PostsScreen() {
     };
     loadUserData();
   }, []);
-  
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${url}/posts`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user?.token || ''}`,
-          },
 
-        });
-        const data = await response.json();
-        if (response.ok) {
-          setPosts(data)
-          setLoading(false);
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}/posts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user?.token || ''}`,
+        },
 
-        } else {
-          alert(data.message || 'Erro ao carregar posts');
-          setLoading(false);
-        }
-      } catch (error) {
-        alert('Erro ao conectar ao servidor');
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const sortedData = data.sort((a, b) =>
+          new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+        setPosts(sortedData)
+        setLoading(false);
+
+      } else {
+        alert(data.message || 'Erro ao carregar posts');
         setLoading(false);
       }
-    };
+    } catch (error) {
+      alert('Erro ao conectar ao servidor');
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     if (!user) return;
     fetchPosts();
   }, [user]);
-  
+
   return (
     <View style={styles.screenContainer}>
       <HeaderScreens isLogoVisible={true} isTextVisible={false} HeaderText="Meus Posts" isBackButtonVisible={false} />
@@ -67,32 +70,44 @@ export default function PostsScreen() {
         />
         <Divider style={styles.filterDivider} />
       </View>
-      <List.Section>
+      <View style={{ flex: 1 }}>
         {loading ? (
           <Text>Carregando...</Text>
         ) : (
           <FlatList
             data={posts.filter(post => post.title.toLowerCase().includes(filterText.toLowerCase()))}
             keyExtractor={(item) => item.id.toString()}
+            scrollEnabled={true}
+            style={{ flex: 1 }}
+            onRefresh={() => {
+              if (!user) return;
+              else {
+                fetchPosts()
+                console.log('Posts atualizados');
+              }
+            }}
+            refreshing={loading}
             ItemSeparatorComponent={() => <Divider />}
             renderItem={({ item }) => (
               <List.Item style={styles.listItem}
-              onPress={() => navigation.navigate('PostsReadScreen', { postId: item.id })}
-              title={item.title}
-              titleStyle={styles.listItemTitle}
-              description={item.description}
-              descriptionStyle={styles.listItemDescription}
+                onPress={() => nav.navigate('PostsReadScreen', { postId: item.id })}
+                title={item.title}
+                titleNumberOfLines={1}
+                titleStyle={styles.listItemTitle}
+                description={item.description}
+                descriptionNumberOfLines={2}
+                descriptionStyle={styles.listItemDescription}
               />
             )}
             ListEmptyComponent={() => (
               <Text>Nenhum post encontrado</Text>
             )}
-            />
-          )}
-          <Divider />
-      </List.Section>
-      <FAB style={styles.fab} icon="plus" 
-      onPress={() => navigation.navigate('PostsCreateScreen')} />
+          />
+        )}
+        <Divider />
+      </View>
+      <FAB style={styles.fab} icon="plus"
+        onPress={() => nav.navigate('PostsCreateScreen')} />
       <StatusBar style="auto" />
     </View>
   );

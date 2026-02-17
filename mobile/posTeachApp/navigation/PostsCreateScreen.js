@@ -57,7 +57,7 @@ export default function PostsCreateScreen() {
             const data = await response.json();
             if (response.ok) {
                 alert('Post criado com sucesso!');
-                navigation.goBack();
+                navigation.goBack({refresh: true});
             } else {
                 alert(data.message + response.status || 'Erro ao criar post');
             }
