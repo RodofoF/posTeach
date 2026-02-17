@@ -42,7 +42,9 @@ export default function PostsScreen({ navigation }) {
         const sortedData = data.sort((a, b) =>
           new Date(b.updatedAt) - new Date(a.updatedAt)
         );
-        setPosts(sortedData)
+        const currentUserId = user?.user?.id;
+        const onlyMine = sortedData.filter(post => post.user_id === currentUserId);
+        setPosts(onlyMine);
         setLoading(false);
 
       } else {
