@@ -72,7 +72,7 @@ export default function PostsScreen({ navigation }) {
         />
         <Divider style={styles.filterDivider} />
       </View>
-      <IfProfComponent profileId={user?.user?.profileId}>
+      <IfProfComponent profileId={user?.user?.profile_id}>
       <View style={{ flex: 1 }}>
         {loading ? (
           <Text style={styles.loadingText}>Carregando...</Text>
@@ -112,7 +112,7 @@ export default function PostsScreen({ navigation }) {
       <FAB style={styles.fab} icon="plus"
         onPress={() => nav.navigate('PostsCreateScreen')} />
         </IfProfComponent>
-        {(!user || user.user.profileId !== '1') && (
+        {(!user || user.user.profile_id !== 1) && (
           <View style={styles.IfProfStyle}>
             <Text style={styles.IfProfStyleText}>Apenas professores podem criar e gerenciar posts.</Text>
           </View>

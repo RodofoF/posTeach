@@ -5,6 +5,7 @@ import { loadLoginData } from '../helpers/storage';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput, Button } from "react-native-paper";
 import { Picker } from '@react-native-picker/picker';
+import EyeButtonComponent from "../components/EyeButtonComponent";
 
 export default function SettingsUserCreateScreen() {
 
@@ -15,7 +16,7 @@ export default function SettingsUserCreateScreen() {
     const [profileId, setProfileId] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [errors, setErrors] = useState({ username: '', email: '', password: '', profileId: '', userDescription: '' });
-
+    const [passwordVisible, setPasswordVisible] = useState(false);
     const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
 
     const navigation = useNavigation();
@@ -41,10 +42,10 @@ export default function SettingsUserCreateScreen() {
             setErrors(prevErrors => ({ ...prevErrors, profileId: 'Por favor, preencha o ID do perfil' }));
             return;
         }
-        if (!userDescription) {
-            setErrors(prevErrors => ({ ...prevErrors, userDescription: 'Por favor, preencha a descrição do usuário' }));
-            return;
-        }
+        // if (!userDescription) {
+        //     setErrors(prevErrors => ({ ...prevErrors, userDescription: 'Por favor, preencha a descrição do usuário' }));
+        //     return;
+        // }
         try {
             const response = await fetch(`${url}/users`, {
                 method: 'POST',
@@ -123,16 +124,23 @@ export default function SettingsUserCreateScreen() {
                 multiline
             />
             {errors.userDescription && <Text style={styles.errorText}>{errors.userDescription}</Text>}
-            <TextInput
-                label="Senha"
-                mode="outlined"
-                value={password}
-                onChangeText={setPassword}
-                style={styles.input}
-                autoCapitalize="none"
-                outlineColor={colors.darkLetter}
-                activeOutlineColor={colors.primary}
-            />
+            <View style={{ position: 'relative', width: '100%' }}>
+                <TextInput
+                    label="Senha"
+                    mode="outlined"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry={!passwordVisible}
+                    style={styles.input}
+                    autoCapitalize="none"
+                    outlineColor={colors.darkLetter}
+                    activeOutlineColor={colors.primary}
+                />
+                <EyeButtonComponent 
+                    onPress={() => setPasswordVisible(!passwordVisible)}
+                    visible={passwordVisible}
+                />
+            </View>
             {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
             <Text style={{ 
                 color: colors.darkLetter, 

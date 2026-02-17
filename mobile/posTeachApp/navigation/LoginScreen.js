@@ -15,6 +15,7 @@ import logo from '../assets/posteach_icon_side_bg.png';
 
 // Outros
 import { colors } from '../src/theme';
+import EyeButtonComponent from '../components/EyeButtonComponent';
 
 
 export default function LoginScreen({ navigation }) {
@@ -23,6 +24,8 @@ export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
 
   const url = process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:3000/api';
 
@@ -78,11 +81,12 @@ export default function LoginScreen({ navigation }) {
                 label="Senha"
                 value={password}
                 onChangeText={text => setPassword(text)}
-                secureTextEntry={true}
+                secureTextEntry={!passwordVisible}
                 textContentType="password"
                 autoCapitalize="none"
                 autoCorrect={false}
               />
+              <EyeButtonComponent onPress={() => setPasswordVisible(!passwordVisible)} visible={passwordVisible} />
             </View>
             <ButtonConfirm title="Entrar" onPress={handleLogin} />
           </View>

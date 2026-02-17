@@ -44,11 +44,12 @@ export default function SettingsScreen({ navigation }) {
           <View style={styles.userInfoTextContainer}>
             <Text style={styles.userName}>{user?.username || 'Fulano de tal'}</Text>
             <Text style={styles.userEmail}>{user?.email || 'fulano@email.com'}</Text>
+            <Text style={styles.userEmail}>Perfil: {user?.profile_id === 1 ? 'Professor' : 'Aluno'}</Text>
           </View>
         </View>
         <Divider style={{ marginVertical: 20 }} />
         <List.Section style={styles.optionsContainer}>
-          <IfProfComponent profileId={user?.profileId}>
+          <IfProfComponent profileId={user?.profile_id}>
             <List.Item
               title="Gerencie usuários"
               left={() => <List.Icon icon="account-group" />}
