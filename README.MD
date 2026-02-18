@@ -1,13 +1,13 @@
 # POS TEACH
 Esse é um projeto do curso de FullStack da turma 6FSDT. 
 
-O **Posteach** é um software inicialmente desenvolvido na plataforma **OutSystems**, que ao longo das fases esta evoluindo para um projeto fullstack totalmente em javascript.
+O **Posteach** é um software inicialmente desenvolvido na plataforma **OutSystems**, que ao longo das fases esta evoluindo para um projeto fullstack nesse momento estamos desenvolvendo a aplicação mobile com react-native.
 
 ## Video
 Em anexo ao projeto anexei o vídeo do projeto, mas caso haja algum problema abaixo tem um link do video.
 
 ```bash
-https://1drv.ms/v/c/9b83eac8540af75e/IQAxKtpe3C5YR7u25ytPo7t3AZOQgoq-mkbJxeCK6ltgRLE?e=3bO9bp
+
 ```
 
 ## Sobre
@@ -15,51 +15,38 @@ Voltado para conectar **professores e alunos** em um ambiente digital simples, r
 A idéia do **PosTeach** é uma brincadeira com a palavra **post-it** que sonoramente similar a **Post Teach**, passando a ideia que o professor está entregando um post-it para o aluno de temas importantes.
 
 ## Por trás do projeto
-Decidi deixar o projeto backend e frontend no mesmo repositório para facilitar o deploy e avaliação dos professores. Por mais que não seja recomendado as variáveis de ambiente foram deixadas no diretório para facilitar os testes.
+Decidi deixar o projeto backend, frontend e mobile no mesmo repositório para facilitar o deploy e avaliação dos professores. Esse README é referente a aplicação mobile sendo ela o tópico da fase atual. Por mais que não seja recomendado as variáveis de ambiente foram deixadas no diretório para facilitar os testes.
 
-### Backend
-Foi desenvolvido em NodeJs, Express e Mysql com Sequelize como ORM. Optei por utilizar essas tecnologias por ter mais familiariedade em projetos de estudos anteriores. O Backend segue uma estrutura MVC, documentação feita com swagger e testes feitos com JEST.
-O backend conta com JWT authentication para gerencia dos tokens e bcrypt para criptografia de senhas.
+###  Frontend e Backend
+Não vou me extender nos tópicos anteriores, mas vale mencionar que não houveram alteraçoes da estrutura dos projetos das fases anteriores, por mais que houvessem pendencias referêntes ao backend e recomendações dos professor avaliador da fase anterior. Caso decida consultar os READMEs anteriores se encontram nos diretórios de acordo com cada fase.
 
-### Frontend
-O frontend foi feito em react e como biblioteca auxiliar para componentes e estilização optei por utilizar o "react-bootstrap", ele já entrega componentes responsivos assim podendo focar melhor nas funcionalidades do projeto e integrações.
-A definição do tema do projeto foi importante para facilitar a contrução do frontend, facilitando a escolha de cores e imagens para o projeto.
-Trabalhei com dois componentes customizados para ajudar na padronização da plataforma, outros componentes podem surgir no futuro, eles estarão descritos na documentação em pendências.
-O Formik e Yup são apresentados nas matérias da postech e foram importantes para facilitar os formulários do projeto.
-
-## Teste
-Para realizar os teste execute o container do backend no diretório 'back'.
-```bash
-docker compose up --build
-```
-Em outro terminal execute o teste no mesmo diretório 'back'.
-```bash
-npm run test
-```
-É esperado todos testes sinalizem comom 'passed'.
 
 ## Deploy
-Suba o container do backend no diretório `back` com o comando
+Prepare o backend e suba o container no diretório `back` com o comando
 ```bash
 docker compose up --build
 ```
-Em seguida suba o container do frontend no diretório `front/posteach-front``
+
+No diretório `mobile/posTeachApp` altere o ip de acordo com o IP da maquina que esta fazendo teste
 ```bash
-docker compose up --build
+EXPO_PUBLIC_BACKEND_URL=http://<SEU_IP>:3000/api
 ```
-Acesse a aplicação pelo browser em 
+
+No diretório `mobile/posTeachApp` suba a aplicação com o comando abaixo. Nessa fase de desenvolvimento estamos utilizando o Expo como "emulador" android e ios. É importante que tenha o "Expo Go" instalado em seu dispositivo para que consiga testar a aplicação.
 ```bash
-http://localhost:8081/login
-``` 
-A senha padrão para usuáiro admin:
+npx expo start
+```
+
+Escaneando o QR Code gerado no terminal, após o escaneamento com seu celular, você terá acesso ao aplicativo **posTeachApp**.
+
+A senha padrão para admin, a consta esta com previlégios de Professor, então é possivel gerenciar o app com ela:
 ```bash
 login: admin@admin.com
-senha: 123456
+senha: admin
 ```
-Assim a aplicação esta pronta para ser utilizada.
 
 ## Acessos
-Documentação com swagger:
+Documentação do backend com swagger:
 ```bash
 http://localhost:3000/api-docs/
 ```
@@ -74,25 +61,24 @@ GUI Teste, caso execute a aplicação em ambiente de desenvolvimento com `npm ru
 http://localhost:5173/login
 ```
 
-
+## Aprendizados no React-Native
+* Maior facilidade para criar um layout, já que hoje em dia utilizamoms mais aplicativos e eles são pensados para ser mais simples;
+* Tentei implantar um FlatList com limite de carregamento, mas  o backend não esta preparado para receber requisiçoes com limit, então foi implementado um flatlist simples;
+* Como o projeto é pequeno e não é visado para produção ou crescimento, optei por deixar da forma mais simples os arquivos de screen;
+* Novamente optei pelo JavaScript, não vi necessida de utilizar o TypeScript, talvez na resolução de erros seria melhor identificado qual seria o erro, mas até o momento não tive essa experiência;
+* Utilizei de components para facilitar a criação das páginas, tornando menos verboso o projeto e ajudando na lógica e manutenção;
+* Tive muitos erros relacionados a estilização, em geral os erros falavam que as medidas estavam negativas, havia dificuldade em entender onde estava os erros relacionados a estilo, porque eles não era exibidos durante o desenvolvimento, somente quando estava testando o app pelo Expo e as vezes o erro aparecia e as vezes não, o copilot foi essencial para resolver esses erros;
+* Como o projeto anterior foi em React, fazer o projeto em React-native foi familiar e os erros que cometi desenvolvendo em React pude corrigir desenvolvendo com React-Native
 
 ## Pendências
-* Ajustar o Back e Front para receber e exibir imagens de post e usuário;
-* Ajustar tabela de usuários e em myposts, esta 'qubrando' em telas pequenas;
-* Redirecionar endpoints quando não existentes aparecer pagina 404;
-* Se o token expirar ser redirecionado para o login;
-* Criar componente para filtro;
-* Deixar o projeto inteiro em um docker-compose, para facilitar a execução
+* Preparar o App para enviar imagens para o backend (Usuário e Post);
+* Ajustar pequenas falhas no layout, como teclado do dispositivo cobrindo alguns inputs;
+* Melhorar animações;
 
-# Dificuldades e aprendizados
-* Tive dificuldades na elaboração dos testes, para mim os testes ainda não estão 100%, precisam ser mais estudados. Para mim ficou redundante fazer os testes, porque quando vou construindo o back end eu vou testando e ajustando, talvez em projetos maiores com mais pessoas contribuindo seria melhor aproveitado os testes;
-* Dificuldade de design, não tenho muita experiência com design, deixando assim minha interface com somente um OK, e nada de especial que chame a atenção;
-* Typescript, eu realmente gostaria de ter utilizado Typescript no projeto, por ser muito enfatizado sobre como a tipagem é importante, mas isso adicionou complexidade ao projeto e ainda não cheguei em um passo que a tipagem fosse extremamente necessária. O javascript deixa mais simples por isso decidi permanecer nele;
-* Para me ajudar e dar mais agilidade utilizei o copilot no vscode, foi extremamente importante a ferramenta para agilizar o processo e aprendizado, tentei travar o máximo possivel o copilot para ele não escrever um código que saia do meu controle e entedimento. Minha sensação com IA é que eu conseguiria fazer o projeto sem a IA, mas não conseguiria fazer no tempo e não entregaria o projeto no ponto que esta agora
+## Informações do Criador
+**Nome**: Rodolfo Ferreira Fernandes
+**E-mail**: rdf.8888@gmail.com
+**RM** 365194
 
-# Aprendizados no react-native
-* Maior facilidade para criar um layout, já que hoje em dia utilizamoms mais aplicativos e eles são pensados para ser mais simples.
-* Tentei implantar um FlatList com limite de carregamento, mas  o backend não esta preparado para receber requisiçoes com limit,então foi implementado um flatlist simples
-* Como o projeto é pequeno e não é visado para produção ou crescimento, optei por deixar da forma mais simples os arquivos de screen;
-* Novamente optei pelo JavaScript, não vi necessida de utilizar o TypeScript, talvez na resolução de erros seria melhor identificado qual seria o erro, mas até o momento não tive essa experiência
-* Utilizei de components para facilitar a criação das páginas, tornando menos verboso o projeto e ajudando na lógica e manutenção
+
+
