@@ -7,7 +7,7 @@ O **Posteach** é um software inicialmente desenvolvido na plataforma **OutSyste
 Em anexo ao projeto anexei o vídeo do projeto, mas caso haja algum problema abaixo tem um link do video.
 
 ```bash
-
+https://lucianospeedcast-my.sharepoint.com/:v:/g/personal/rodolfo_speedcast_com_br/IQCaUBpo4ksZTqcUUDCfc4ccAWXSIXhebosXDb4-FpRBniw?e=TVVikl
 ```
 
 ## Sobre
@@ -51,15 +51,6 @@ Documentação do backend com swagger:
 http://localhost:3000/api-docs/
 ```
 
-GUI Produção, se executar o container em docker com `docker compose up --build`:
-```bash
-http://localhost:8081/login
-```
-
-GUI Teste, caso execute a aplicação em ambiente de desenvolvimento com `npm run dev`:
-```bash
-http://localhost:5173/login
-```
 
 ## Aprendizados no React-Native
 * Maior facilidade para criar um layout, já que hoje em dia utilizamoms mais aplicativos e eles são pensados para ser mais simples;
