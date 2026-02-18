@@ -7,7 +7,7 @@ O **Posteach** é um software inicialmente desenvolvido na plataforma **OutSyste
 Em anexo ao projeto anexei o vídeo do projeto, mas caso haja algum problema abaixo tem um link do video.
 
 ```bash
-https://lucianospeedcast-my.sharepoint.com/:v:/g/personal/rodolfo_speedcast_com_br/IQCaUBpo4ksZTqcUUDCfc4ccAWXSIXhebosXDb4-FpRBniw?e=TVVikl
+https://drive.google.com/file/d/1y0sW1cgjS23G5W8pFhSnZJxfH5zwCuvL/view?usp=sharing
 ```
 
 ## Sobre
@@ -67,9 +67,9 @@ http://localhost:3000/api-docs/
 * Melhorar animações;
 
 ## Informações do Criador
-**Nome**: Rodolfo Ferreira Fernandes
-**E-mail**: rdf.8888@gmail.com
-**RM** 365194
+* **Nome**: Rodolfo Ferreira Fernandes
+* **E-mail**: rdf.8888@gmail.com
+* **RM** 365194
 
 
 
